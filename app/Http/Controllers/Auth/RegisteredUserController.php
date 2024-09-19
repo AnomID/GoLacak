@@ -31,22 +31,32 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // Mengubah email ke lowercase sebelum validasi
+        $request->merge([
+            'email' => strtolower($request->email),
+        ]);
+
+        // Validasi input pendaftaran
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'email' => 'required|string|email|max:255|unique:users', // Nama tabel di database
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        // Buat user baru
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
+        // Event user terdaftar
         event(new Registered($user));
 
+        // Login otomatis setelah registrasi
         Auth::login($user);
 
+        // Redirect ke halaman setelah login
         return redirect(RouteServiceProvider::HOME);
     }
 }

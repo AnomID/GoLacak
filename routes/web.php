@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -36,13 +37,27 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
-});
+Route::middleware(['auth', 'role:admin'])->get('/admin', function () {
+    return Inertia::render('AdminDashboard', [
+        'user' => auth()->user(),
+        'months' => [
+            'January', 'February', 'March', 'April', 'May', 'June', 
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ],
+    ]);
+})->name('admin.dashboard');
 
-Route::middleware(['auth', 'role:user'])->group(function () {
-    Route::get('/user', [UserController::class, 'index'])->name('user.dashboard');
-});
+Route::post('/logout', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+
+Route::middleware(['auth', 'role:user'])->get('/user', function () {
+    return Inertia::render('UserDashboard');
+})->name('user.dashboard');
+
+Route::get('/add-month', function () {
+    return Inertia::render('AddMonth');
+})->name('add.month');
+
 
 
 
