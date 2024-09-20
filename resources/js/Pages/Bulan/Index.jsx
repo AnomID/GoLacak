@@ -1,37 +1,52 @@
 import React from "react";
-import { Link, usePage } from "@inertiajs/react";
+import { Link } from "@inertiajs/inertia-react";
+import { Inertia } from "@inertiajs/inertia";
 
-export default function BulanIndex() {
-    const { bulan } = usePage().props;
+const BulanIndex = ({ bulan }) => {
+    const handleDelete = (id) => {
+        if (confirm("Are you sure you want to delete this month?")) {
+            Inertia.delete(route("bulan.destroy", id)); // Menggunakan Inertia untuk delete
+        }
+    };
 
     return (
         <div>
-            <h1>Daftar Bulan</h1>
-            <Link href="/bulan/create" className="btn btn-primary">
-                Tambah Bulan
-            </Link>
-            <ul>
-                {bulan.map((item) => (
-                    <li key={item.id}>
-                        {item.bulan}
-                        <Link href={`/bulan/${item.id}/edit`}>Edit</Link>
-                        <form
-                            action={`/bulan/${item.id}`}
-                            method="POST"
-                            style={{ display: "inline-block" }}
-                        >
-                            <input
-                                type="hidden"
-                                name="_method"
-                                value="DELETE"
-                            />
-                            <button type="submit" className="btn btn-danger">
-                                Delete
-                            </button>
-                        </form>
-                    </li>
-                ))}
-            </ul>
+            <h1>Bulan</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bulan</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {bulan.map((item) => (
+                        <tr key={item.id}>
+                            <td>
+                                <Link href={route("program.index", item.id)}>
+                                    {item.bulan}
+                                </Link>
+                            </td>
+                            <td>
+                                <Link
+                                    href={route("bulan.edit", item.id)}
+                                    className="btn btn-sm btn-warning"
+                                >
+                                    Edit
+                                </Link>
+                                <button
+                                    onClick={() => handleDelete(item.id)} // Panggil handleDelete
+                                    className="btn btn-sm btn-danger"
+                                >
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
-}
+};
+
+export default BulanIndex;

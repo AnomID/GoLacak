@@ -6,10 +6,10 @@ use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\Api\BulanController;
-use App\Http\Controllers\Api\ProgramController;
-use App\Http\Controllers\Api\KegiatanController;
-use App\Http\Controllers\Api\SubKegiatanController;
+use App\Http\Controllers\BulanController;
+use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\SubKegiatanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,10 +63,48 @@ Route::get('/add-month', function () {
 })->name('add.month');
 
 
-
 Route::resource('bulan', BulanController::class);
-Route::resource('program', ProgramController::class);
-Route::resource('kegiatan', KegiatanController::class);
-Route::resource('sub_kegiatan', SubKegiatanController::class);
+
+// Route::resource('program', ProgramController::class);
+// Route untuk menampilkan program berdasarkan bulan yang dipilih
+// Route::get('program/{bulan}', [ProgramController::class, 'index'])->name('program.index');
+
+// // Route untuk form create program yang dikaitkan dengan bulan tertentu
+// Route::get('program/create/{bulan}', [ProgramController::class, 'create'])->name('program.create');
+
+// // Route untuk menyimpan program
+// Route::post('program', [ProgramController::class, 'store'])->name('program.store');
+
+// Route::get('program/{id}/edit', [ProgramController::class, 'edit'])->name('program.edit');
+// Route::delete('program/{id}', [ProgramController::class, 'destroy'])->name('program.destroy');
+
+// Route untuk edit dan update program tetap bisa menggunakan resource
+// Route::resource('program', ProgramController::class)->except(['index', 'create', 'store']);
+
+// Rute untuk Program
+Route::get('program/{bulan}', [ProgramController::class, 'index'])->name('program.index');
+Route::get('program/create/{bulan}', [ProgramController::class, 'create'])->name('program.create');
+Route::post('program', [ProgramController::class, 'store'])->name('program.store');
+Route::get('program/{program}/edit', [ProgramController::class, 'edit'])->name('program.edit');
+Route::put('program/{program}', [ProgramController::class, 'update'])->name('program.update');
+Route::delete('program/{program}', [ProgramController::class, 'destroy'])->name('program.destroy');
+
+// Route::resource('kegiatan', KegiatanController::class);
+// Rute untuk Kegiatan
+Route::get('kegiatan/program/{program}', [KegiatanController::class, 'index'])->name('kegiatan.index'); // Menampilkan kegiatan berdasarkan program
+Route::get('kegiatan/create/{program}', [KegiatanController::class, 'create'])->name('kegiatan.create');
+Route::post('kegiatan', [KegiatanController::class, 'store'])->name('kegiatan.store');
+Route::get('kegiatan/{kegiatan}/edit', [KegiatanController::class, 'edit'])->name('kegiatan.edit'); // Form untuk edit kegiatan
+Route::put('kegiatan/{kegiatan}', [KegiatanController::class, 'update'])->name('kegiatan.update'); // Update kegiatan
+Route::delete('kegiatan/{kegiatan}', [KegiatanController::class, 'destroy'])->name('kegiatan.destroy'); // Menghapus kegiatan
+
+// Route::resource('subkegiatan', SubKegiatanController::class);
+Route::get('sub-kegiatan/kegiatan/{kegiatan}', [SubKegiatanController::class, 'index'])->name('subkegiatan.index');
+Route::get('sub-kegiatan/create/{kegiatan}', [SubKegiatanController::class, 'create'])->name('subkegiatan.create');
+Route::post('sub-kegiatan', [SubKegiatanController::class, 'store'])->name('subkegiatan.store');
+Route::get('sub-kegiatan/{subkegiatan}/edit', [SubKegiatanController::class, 'edit'])->name('subkegiatan.edit');
+Route::put('sub-kegiatan/{subkegiatan}', [SubKegiatanController::class, 'update'])->name('subkegiatan.update');
+Route::delete('sub-kegiatan/{subkegiatan}', [SubKegiatanController::class, 'destroy'])->name('subkegiatan.destroy');
+
 
 require __DIR__.'/auth.php';

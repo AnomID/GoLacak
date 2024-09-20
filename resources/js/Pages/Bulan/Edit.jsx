@@ -1,14 +1,26 @@
-import React from "react";
-import { useForm } from "@inertiajs/react";
+import React, { useState } from "react";
+import { useForm, Link } from "@inertiajs/react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { format, parse } from "date-fns";
 
-export default function BulanEdit({ bulan }) {
-    const { data, setData, put } = useForm({
+const BulanEdit = ({ bulan }) => {
+    // Parsing format yang ada di database
+    const [startDate, setStartDate] = useState(
+        parse(bulan.bulan, "MMMM yyyy", new Date())
+    );
+    const { data, setData, put, errors } = useForm({
         bulan: bulan.bulan || "",
     });
 
+    const handleDateChange = (date) => {
+        setStartDate(date);
+        setData("bulan", format(date, "MMMM yyyy")); // Format bulan dan tahun
+    };
+
     const submit = (e) => {
         e.preventDefault();
-        put(`/bulan/${bulan.id}`);
+        put(route("bulan.update", bulan.id));
     };
 
     return (
@@ -16,15 +28,21 @@ export default function BulanEdit({ bulan }) {
             <h1>Edit Bulan</h1>
             <form onSubmit={submit}>
                 <div>
-                    <label htmlFor="bulan">Bulan</label>
-                    <input
-                        type="date"
-                        value={data.bulan}
-                        onChange={(e) => setData("bulan", e.target.value)}
+                    <label>Bulan</label>
+                    {/* Menggunakan DatePicker dengan format MMMM yyyy */}
+                    <DatePicker
+                        selected={startDate}
+                        onChange={(date) => handleDateChange(date)}
+                        dateFormat="MMMM yyyy" // Format tampilan
+                        showMonthYearPicker // Menampilkan hanya bulan dan tahun
                     />
+                    {errors.bulan && <div>{errors.bulan}</div>}
                 </div>
-                <button type="submit">Update</button>
+                <button type="submit">Submit</button>
+                <Link href={route("bulan.index")}>Cancel</Link>
             </form>
         </div>
     );
-}
+};
+
+export default BulanEdit;
