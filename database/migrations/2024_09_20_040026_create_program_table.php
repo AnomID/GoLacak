@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
+
 return new class extends Migration
 {
     /**
@@ -11,9 +12,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('kegiatan', function (Blueprint $table) {
+        Schema::create('program', function (Blueprint $table) {
             $table->uuid('id')->primary()->default(Str::uuid());
-            $table->string('nama_kegiatan');
+            $table->string('nama_program');
             $table->string('nama_indikator');
             $table->integer('jumlah_indikator');
             $table->string('tipe_indikator');
@@ -22,18 +23,22 @@ return new class extends Migration
             $table->bigInteger('perubahan');
             $table->bigInteger('penyerapan_anggaran');
             $table->bigInteger('persen_penyerapan_anggaran');
-            $table->uuid('sub_kegiatan_id');
+            $table->uuid('bulan_id');  // Foreign key to bulan table
             $table->timestamps();
 
             // Foreign Key Constraint
-            $table->foreign('sub_kegiatan_id')->references('id')->on('sub_kegiatan')->onDelete('cascade');
+            $table->foreign('bulan_id')->references('id')->on('bulan')->onDelete('cascade');
         });
     }
+
     /**
      * Reverse the migrations.
      */
     public function down()
     {
-        Schema::dropIfExists('kegiatan');
+        Schema::table('program', function (Blueprint $table) {
+            $table->dropForeign(['bulan_id']);
+        });
+        Schema::dropIfExists('program');
     }
 };

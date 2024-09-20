@@ -6,6 +6,10 @@ use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\Api\BulanController;
+use App\Http\Controllers\Api\ProgramController;
+use App\Http\Controllers\Api\KegiatanController;
+use App\Http\Controllers\Api\SubKegiatanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,5 +64,9 @@ Route::get('/add-month', function () {
 
 
 
+Route::resource('bulan', BulanController::class);
+Route::resource('program', ProgramController::class);
+Route::resource('kegiatan', KegiatanController::class);
+Route::resource('sub_kegiatan', SubKegiatanController::class);
 
 require __DIR__.'/auth.php';

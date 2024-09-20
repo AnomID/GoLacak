@@ -23,7 +23,11 @@ return new class extends Migration
             $table->bigInteger('perubahan');
             $table->bigInteger('penyerapan_anggaran');
             $table->bigInteger('persen_penyerapan_anggaran');
+            $table->uuid('kegiatan_id');  // Foreign key to kegiatan table
             $table->timestamps();
+
+            // Foreign Key Constraint
+            $table->foreign('kegiatan_id')->references('id')->on('kegiatan')->onDelete('cascade');
         });
     }
 
@@ -32,6 +36,9 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('sub_kegiatan', function (Blueprint $table) {
+            $table->dropForeign(['kegiatan_id']);
+        });
         Schema::dropIfExists('sub_kegiatan');
     }
 };
