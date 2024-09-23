@@ -6,7 +6,15 @@ const EditKegiatan = ({ kegiatan }) => {
 
     const submit = (e) => {
         e.preventDefault();
-        put(route("kegiatan.update", kegiatan.id));
+        const formData = {
+            ...data,
+            anggaran_murni: data.anggaran_murni || 0,
+            pergeseran: data.pergeseran || 0,
+            perubahan: data.perubahan || 0,
+            penyerapan_anggaran: data.penyerapan_anggaran || 0,
+            persen_penyerapan_anggaran: data.persen_penyerapan_anggaran || 0,
+        };
+        put(route("kegiatan.update", kegiatan.id), { data: formData });
     };
 
     return (

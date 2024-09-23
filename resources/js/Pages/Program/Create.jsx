@@ -17,7 +17,16 @@ const CreateProgram = ({ bulan }) => {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route("program.store"));
+        // Set default values for fields if they are empty
+        const formData = {
+            ...data,
+            anggaran_murni: data.anggaran_murni || 0,
+            pergeseran: data.pergeseran || 0,
+            perubahan: data.perubahan || 0,
+            penyerapan_anggaran: data.penyerapan_anggaran || 0,
+            persen_penyerapan_anggaran: data.persen_penyerapan_anggaran || 0,
+        };
+        post(route("program.store"), { data: formData });
     };
 
     return (

@@ -6,7 +6,16 @@ const EditProgram = ({ program }) => {
 
     const submit = (e) => {
         e.preventDefault();
-        put(route("program.update", program.id));
+        // Set default values for fields if they are empty
+        const formData = {
+            ...data,
+            anggaran_murni: data.anggaran_murni || 0,
+            pergeseran: data.pergeseran || 0,
+            perubahan: data.perubahan || 0,
+            penyerapan_anggaran: data.penyerapan_anggaran || 0,
+            persen_penyerapan_anggaran: data.persen_penyerapan_anggaran || 0,
+        };
+        put(route("program.update", program.id), { data: formData });
     };
 
     return (

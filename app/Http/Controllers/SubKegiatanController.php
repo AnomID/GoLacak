@@ -28,26 +28,34 @@ class SubKegiatanController extends Controller
         ]);
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nama_sub_kegiatan' => 'required|string|max:255',
-            'nama_indikator' => 'required|string|max:255',
-            'jumlah_indikator' => 'required|integer',
-            'tipe_indikator' => 'required|string|max:255',
-            'anggaran_murni' => 'required|numeric',
-            'pergeseran' => 'required|numeric',
-            'perubahan' => 'required|numeric',
-            'penyerapan_anggaran' => 'required|numeric',
-            'persen_penyerapan_anggaran' => 'required|numeric',
-            'kegiatan_id' => 'required|exists:kegiatan,id',
-        ]);
+public function store(Request $request)
+{
+    $request->validate([
+        'nama_sub_kegiatan' => 'required|string|max:255',
+        'nama_indikator' => 'required|string|max:255',
+        'jumlah_indikator' => 'required|integer',
+        'tipe_indikator' => 'required|string|max:255',
+        'anggaran_murni' => 'nullable|numeric',
+        'pergeseran' => 'nullable|numeric',
+        'perubahan' => 'nullable|numeric',
+        'penyerapan_anggaran' => 'nullable|numeric',
+        'persen_penyerapan_anggaran' => 'nullable|numeric',
+        'kegiatan_id' => 'required|exists:kegiatan,id',
+    ]);
 
-        SubKegiatan::create($request->all());
+    // Set default value to 0 if fields are not filled
+    $data = $request->all();
+    $data['anggaran_murni'] = $data['anggaran_murni'] ?? 0;
+    $data['pergeseran'] = $data['pergeseran'] ?? 0;
+    $data['perubahan'] = $data['perubahan'] ?? 0;
+    $data['penyerapan_anggaran'] = $data['penyerapan_anggaran'] ?? 0;
+    $data['persen_penyerapan_anggaran'] = $data['persen_penyerapan_anggaran'] ?? 0;
 
-        return redirect()->route('subkegiatan.index', $request->kegiatan_id)
-                         ->with('success', 'Sub Kegiatan created successfully.');
-    }
+    SubKegiatan::create($data);
+
+    return redirect()->route('subkegiatan.index', $request->kegiatan_id)
+                     ->with('success', 'Sub Kegiatan created successfully.');
+}
 
     public function edit(SubKegiatan $subkegiatan)
     {
@@ -57,25 +65,32 @@ class SubKegiatanController extends Controller
     }
 
     public function update(Request $request, SubKegiatan $subkegiatan)
-    {
-        $request->validate([
-            'nama_sub_kegiatan' => 'required|string|max:255',
-            'nama_indikator' => 'required|string|max:255',
-            'jumlah_indikator' => 'required|integer',
-            'tipe_indikator' => 'required|string|max:255',
-            'anggaran_murni' => 'required|numeric',
-            'pergeseran' => 'required|numeric',
-            'perubahan' => 'required|numeric',
-            'penyerapan_anggaran' => 'required|numeric',
-            'persen_penyerapan_anggaran' => 'required|numeric',
-            'kegiatan_id' => 'required|exists:kegiatan,id',
-        ]);
+{
+    $request->validate([
+        'nama_sub_kegiatan' => 'required|string|max:255',
+        'nama_indikator' => 'required|string|max:255',
+        'jumlah_indikator' => 'required|integer',
+        'tipe_indikator' => 'required|string|max:255',
+        'anggaran_murni' => 'nullable|numeric',
+        'pergeseran' => 'nullable|numeric',
+        'perubahan' => 'nullable|numeric',
+        'penyerapan_anggaran' => 'nullable|numeric',
+        'persen_penyerapan_anggaran' => 'nullable|numeric',
+        'kegiatan_id' => 'required|exists:kegiatan,id',
+    ]);
 
-        $subkegiatan->update($request->all());
+    $data = $request->all();
+    $data['anggaran_murni'] = $data['anggaran_murni'] ?? 0;
+    $data['pergeseran'] = $data['pergeseran'] ?? 0;
+    $data['perubahan'] = $data['perubahan'] ?? 0;
+    $data['penyerapan_anggaran'] = $data['penyerapan_anggaran'] ?? 0;
+    $data['persen_penyerapan_anggaran'] = $data['persen_penyerapan_anggaran'] ?? 0;
 
-        return redirect()->route('subkegiatan.index', $subkegiatan->kegiatan_id)
-                         ->with('success', 'Sub Kegiatan updated successfully.');
-    }
+    $subkegiatan->update($data);
+
+    return redirect()->route('subkegiatan.index', $subkegiatan->kegiatan_id)
+                     ->with('success', 'Sub Kegiatan updated successfully.');
+}
 
     public function destroy(SubKegiatan $subkegiatan)
     {

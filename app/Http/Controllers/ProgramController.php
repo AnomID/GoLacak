@@ -24,26 +24,34 @@ class ProgramController extends Controller
         ]);
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nama_program' => 'required|string|max:255',
-            'nama_indikator' => 'required|string|max:255',
-            'jumlah_indikator' => 'required|integer',
-            'tipe_indikator' => 'required|string|max:255',
-            'anggaran_murni' => 'required|numeric',
-            'pergeseran' => 'required|numeric',
-            'perubahan' => 'required|numeric',
-            'penyerapan_anggaran' => 'required|numeric',
-            'persen_penyerapan_anggaran' => 'required|numeric',
-            'bulan_id' => 'required|exists:bulan,id',
-        ]);
+public function store(Request $request)
+{
+    $request->validate([
+        'nama_program' => 'required|string|max:255',
+        'nama_indikator' => 'required|string|max:255',
+        'jumlah_indikator' => 'required|integer',
+        'tipe_indikator' => 'required|string|max:255',
+        'anggaran_murni' => 'nullable|numeric',
+        'pergeseran' => 'nullable|numeric',
+        'perubahan' => 'nullable|numeric',
+        'penyerapan_anggaran' => 'nullable|numeric',
+        'persen_penyerapan_anggaran' => 'nullable|numeric',
+        'bulan_id' => 'required|exists:bulan,id',
+    ]);
 
-        Program::create($request->all());
+    // Set default value to 0 if fields are not filled
+    $data = $request->all();
+    $data['anggaran_murni'] = $data['anggaran_murni'] ?? 0;
+    $data['pergeseran'] = $data['pergeseran'] ?? 0;
+    $data['perubahan'] = $data['perubahan'] ?? 0;
+    $data['penyerapan_anggaran'] = $data['penyerapan_anggaran'] ?? 0;
+    $data['persen_penyerapan_anggaran'] = $data['persen_penyerapan_anggaran'] ?? 0;
 
-        return redirect()->route('program.index', $request->bulan_id)
-                         ->with('success', 'Program created successfully.');
-    }
+    Program::create($data);
+
+    return redirect()->route('program.index', $request->bulan_id)
+                     ->with('success', 'Program created successfully.');
+}
 
     public function edit(Program $program)
     {
@@ -53,25 +61,32 @@ class ProgramController extends Controller
     }
 
     public function update(Request $request, Program $program)
-    {
-        $request->validate([
-            'nama_program' => 'required|string|max:255',
-            'nama_indikator' => 'required|string|max:255',
-            'jumlah_indikator' => 'required|integer',
-            'tipe_indikator' => 'required|string|max:255',
-            'anggaran_murni' => 'required|numeric',
-            'pergeseran' => 'required|numeric',
-            'perubahan' => 'required|numeric',
-            'penyerapan_anggaran' => 'required|numeric',
-            'persen_penyerapan_anggaran' => 'required|numeric',
-            'bulan_id' => 'required|exists:bulan,id',
-        ]);
+{
+    $request->validate([
+        'nama_program' => 'required|string|max:255',
+        'nama_indikator' => 'required|string|max:255',
+        'jumlah_indikator' => 'required|integer',
+        'tipe_indikator' => 'required|string|max:255',
+        'anggaran_murni' => 'nullable|numeric',
+        'pergeseran' => 'nullable|numeric',
+        'perubahan' => 'nullable|numeric',
+        'penyerapan_anggaran' => 'nullable|numeric',
+        'persen_penyerapan_anggaran' => 'nullable|numeric',
+        'bulan_id' => 'required|exists:bulan,id',
+    ]);
 
-        $program->update($request->all());
+    $data = $request->all();
+    $data['anggaran_murni'] = $data['anggaran_murni'] ?? 0;
+    $data['pergeseran'] = $data['pergeseran'] ?? 0;
+    $data['perubahan'] = $data['perubahan'] ?? 0;
+    $data['penyerapan_anggaran'] = $data['penyerapan_anggaran'] ?? 0;
+    $data['persen_penyerapan_anggaran'] = $data['persen_penyerapan_anggaran'] ?? 0;
 
-        return redirect()->route('program.index', $program->bulan_id)
-                         ->with('success', 'Program updated successfully.');
-    }
+    $program->update($data);
+
+    return redirect()->route('program.index', $program->bulan_id)
+                     ->with('success', 'Program updated successfully.');
+}
     
     public function destroy(Program $program)
     {

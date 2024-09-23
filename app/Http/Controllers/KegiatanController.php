@@ -28,26 +28,34 @@ class KegiatanController extends Controller
         ]);
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nama_kegiatan' => 'required|string|max:255',
-            'nama_indikator' => 'required|string|max:255',
-            'jumlah_indikator' => 'required|integer',
-            'tipe_indikator' => 'required|string|max:255',
-            'anggaran_murni' => 'required|numeric',
-            'pergeseran' => 'required|numeric',
-            'perubahan' => 'required|numeric',
-            'penyerapan_anggaran' => 'required|numeric',
-            'persen_penyerapan_anggaran' => 'required|numeric',
-            'program_id' => 'required|exists:program,id',
-        ]);
+public function store(Request $request)
+{
+    $request->validate([
+        'nama_kegiatan' => 'required|string|max:255',
+        'nama_indikator' => 'required|string|max:255',
+        'jumlah_indikator' => 'required|integer',
+        'tipe_indikator' => 'required|string|max:255',
+        'anggaran_murni' => 'nullable|numeric',
+        'pergeseran' => 'nullable|numeric',
+        'perubahan' => 'nullable|numeric',
+        'penyerapan_anggaran' => 'nullable|numeric',
+        'persen_penyerapan_anggaran' => 'nullable|numeric',
+        'program_id' => 'required|exists:program,id',
+    ]);
 
-        Kegiatan::create($request->all());
+    // Set default value to 0 if fields are not filled
+    $data = $request->all();
+    $data['anggaran_murni'] = $data['anggaran_murni'] ?? 0;
+    $data['pergeseran'] = $data['pergeseran'] ?? 0;
+    $data['perubahan'] = $data['perubahan'] ?? 0;
+    $data['penyerapan_anggaran'] = $data['penyerapan_anggaran'] ?? 0;
+    $data['persen_penyerapan_anggaran'] = $data['persen_penyerapan_anggaran'] ?? 0;
 
-        return redirect()->route('kegiatan.index', $request->program_id)
-                         ->with('success', 'Kegiatan created successfully.');
-    }
+    Kegiatan::create($data);
+
+    return redirect()->route('kegiatan.index', $request->program_id)
+                     ->with('success', 'Kegiatan created successfully.');
+}
 
     public function edit(Kegiatan $kegiatan)
     {
@@ -57,25 +65,32 @@ class KegiatanController extends Controller
     }
 
     public function update(Request $request, Kegiatan $kegiatan)
-    {
-        $request->validate([
-            'nama_kegiatan' => 'required|string|max:255',
-            'nama_indikator' => 'required|string|max:255',
-            'jumlah_indikator' => 'required|integer',
-            'tipe_indikator' => 'required|string|max:255',
-            'anggaran_murni' => 'required|numeric',
-            'pergeseran' => 'required|numeric',
-            'perubahan' => 'required|numeric',
-            'penyerapan_anggaran' => 'required|numeric',
-            'persen_penyerapan_anggaran' => 'required|numeric',
-            'program_id' => 'required|exists:program,id',
-        ]);
+{
+    $request->validate([
+        'nama_kegiatan' => 'required|string|max:255',
+        'nama_indikator' => 'required|string|max:255',
+        'jumlah_indikator' => 'required|integer',
+        'tipe_indikator' => 'required|string|max:255',
+        'anggaran_murni' => 'nullable|numeric',
+        'pergeseran' => 'nullable|numeric',
+        'perubahan' => 'nullable|numeric',
+        'penyerapan_anggaran' => 'nullable|numeric',
+        'persen_penyerapan_anggaran' => 'nullable|numeric',
+        'program_id' => 'required|exists:program,id',
+    ]);
 
-        $kegiatan->update($request->all());
+    $data = $request->all();
+    $data['anggaran_murni'] = $data['anggaran_murni'] ?? 0;
+    $data['pergeseran'] = $data['pergeseran'] ?? 0;
+    $data['perubahan'] = $data['perubahan'] ?? 0;
+    $data['penyerapan_anggaran'] = $data['penyerapan_anggaran'] ?? 0;
+    $data['persen_penyerapan_anggaran'] = $data['persen_penyerapan_anggaran'] ?? 0;
 
-        return redirect()->route('kegiatan.index', $kegiatan->program_id)
-                         ->with('success', 'Kegiatan updated successfully.');
-    }
+    $kegiatan->update($data);
+
+    return redirect()->route('kegiatan.index', $kegiatan->program_id)
+                     ->with('success', 'Kegiatan updated successfully.');
+}
 
     public function destroy(Kegiatan $kegiatan)
     {

@@ -12,6 +12,17 @@ const BulanIndex = ({ bulan }) => {
     return (
         <div>
             <h1>Bulan</h1>
+
+            {/* Tambahkan tombol Add Bulan di sini */}
+            <div style={{ marginBottom: "20px" }}>
+                <Link
+                    href={route("bulan.create")}
+                    className="btn btn-sm btn-primary"
+                >
+                    Add Bulan
+                </Link>
+            </div>
+
             <table>
                 <thead>
                     <tr>
