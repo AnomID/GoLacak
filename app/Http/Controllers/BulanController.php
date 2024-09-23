@@ -487,21 +487,98 @@ Perubahan RKA-SKPD',
                                     'jumlah_indikator' => 30,
                                     'tipe_indikator' => 'Orang',
                                 ],
+                                [
+                                    'nama_sub_kegiatan' => 'Pemberdayaan Pekerja Migran Indonesia Purna Penempatan',
+                                    'nama_indikator' => 'Jumlah PMI Purna yang Diberdayakan',
+                                    'jumlah_indikator' => 15,
+                                    'tipe_indikator' => 'Orang',
+                                ],
                                 // Tambahkan sub-kegiatan lainnya
                             ],
                         ],
                         [
-                            'nama_kegiatan' => 'Pengukuran Produktivitas Tingkat Daerah Kabupaten/Kota',
-                            'nama_indikator' => 'Tingkat produktivitas tenaga kerja',
-                            'jumlah_indikator' => 151227000,
-                            'tipe_indikator' => 'Rupiah',
+                            'nama_kegiatan' => 'Penerbitan Perpanjangan IMTA yang Lokasi Kerja dalam 1 (satu) Daerah Kabupaten/Kota',
+                            'nama_indikator' => 'Persentase Penerbitan Perpanjangan IMTA',
+                            'jumlah_indikator' => 100,
+                            'tipe_indikator' => 'Persen',
                             'anggaran_murni' => 0,
                             'sub_kegiatans' => [
                                 [
-                                    'nama_sub_kegiatan' => 'Pengukuran Kompetensi dan Produktivitas Tenaga Kerja',
-                                    'nama_indikator' => 'Jumlah Dokumen Hasil Pengukuran Produktivitas dan Daya Saing Tenaga Kerja di Tingkat',
+                                    'nama_sub_kegiatan' => 'Koordinasi dan Sinkronisasi Perpanjangan IMTA yang Lokasi Kerja dalam 1 (satu) Daerah Kabupaten/Kota',
+                                    'nama_indikator' => 'jumlah perpanjangan IMTA',
+                                    'jumlah_indikator' => 200,
+                                    'tipe_indikator' => 'Orang',
+                                ],
+                                // Tambahkan sub-kegiatan lainnya
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'nama_program' => 'PROGRAM HUBUNGAN INDUSTRIAL',
+                    'nama_indikator' => 'Persentase perusahaan yang menerapkan tata kelola kerja yang layak',
+                    'jumlah_indikator' => 5,3,
+                    'tipe_indikator' => 'Persen',
+                    'anggaran_murni' => 0,
+                    'kegiatans' => [
+                        [
+                            'nama_kegiatan' => 'Pengesahan Peraturan Perusahaan dan Pendaftaran Perjanjian Kerja Bersama untuk Perusahaan yang hanya Beroperasi dalam 1 (satu) Daerah Kabupaten/Kota',
+                            'nama_indikator' => 'Jumlah Perusahaan yang memiliki Peraturan Perusahaan (PP) dan perusahaan yang memiliki Perjanjian Kerja Bersama (PKB)',
+                            'jumlah_indikator' => 758,
+                            'tipe_indikator' => 'Perusahaan',
+                            'anggaran_murni' => 0,
+                            'sub_kegiatans' => [
+                                [
+                                    'nama_sub_kegiatan' => 'Pengesahan Peraturan Perusahaan bagi Perusahaan',
+                                    'nama_indikator' => 'Jumlah Perusahaan yang Melaksanakan Pengesahan Peraturan Perusahaan yang Terkait dengan Hubungan Industrial dan Terdaftar di WLKP Online',
+                                    'jumlah_indikator' => 45,
+                                    'tipe_indikator' => 'Perusahaan',
+                                ],
+                                [
+                                    'nama_sub_kegiatan' => 'Pendaftaran Perjanjian Kerjasama bagi Perusahaan',
+                                    'nama_indikator' => 'Jumlah Perusahaan yang Menyusun Perjanjian Kerja Bersama',
+                                    'jumlah_indikator' => 3,
+                                    'tipe_indikator' => 'Perusahaan',
+                                ],
+                                [
+                                    'nama_sub_kegiatan' => 'Penyelenggaraan Pendataan dan Informasi Sarana Hubungan Industrial dan Jaminan Sosial Tenaga Kerja serta Pengupahan',
+                                    'nama_indikator' => 'Jumlah Data dan Informasi Sarana HI (PP/PKB, Struktur Skala Upah, dan LKS Bipartit) dan Pekerja yang Terdaftar sebagai Peserta Jamsostek serta Pengupahan',
+                                    'jumlah_indikator' => 4,
+                                    'tipe_indikator' => 'Laporan',
+                                ],
+                                // Tambahkan sub-kegiatan lainnya
+                            ],
+                        ],
+                        [
+                            'nama_kegiatan' => 'Pencegahan dan Penyelesaian Perselisihan Hubungan Industrial, Mogok Kerja dan Penutupan Perusahaan di Daerah Kabupaten/Kota',
+                            'nama_indikator' => 'Persentase perselisihan hubungan industrial yang diselesaikan melalui Perjanjian Bersama (PB)',
+                            'jumlah_indikator' => 56,
+                            'tipe_indikator' => 'Persen',
+                            'anggaran_murni' => 0,
+                            'sub_kegiatans' => [
+                                [
+                                    'nama_sub_kegiatan' => 'Pencegahan Perselisihan Hubungan Industrial, Mogok Kerja, dan Penutupan Perusahaan yang Berakibat/Berdampak pada Kepentingan di 1 (satu) Daerah Kabupaten/Kota',
+                                    'nama_indikator' => 'Jumlah Perselisihan yang Dicegah',
+                                    'jumlah_indikator' => 160,
+                                    'tipe_indikator' => 'Perkara',
+                                ],
+                                [
+                                    'nama_sub_kegiatan' => 'Penyelesaian Perselisihan Hubungan Industrial, Mogok Kerja, dan Penutupan Perusahaan yang Berakibat/Berdampak pada Kepentingan di 1 (satu) Daerah Kabupaten/Kota',
+                                    'nama_indikator' => 'Jumlah Perkara Perselisihan yang Terselesaikan',
+                                    'jumlah_indikator' => 100,
+                                    'tipe_indikator' => 'Perkara',
+                                ],
+                                [
+                                    'nama_sub_kegiatan' => 'Penyelenggaraan Verifikasi dan Rekapitulasi Keanggotaan pada Organisasi Pengusaha, Federasi dan Konfederasi Serikat Pekerja/Serikat Buruh serta Non Afiliasi',
+                                    'nama_indikator' => 'Jumlah Asosiasi Pengusaha dan Serikat Pekerja yang Diverifikasi',
                                     'jumlah_indikator' => 10,
-                                    'tipe_indikator' => 'Dokumen',
+                                    'tipe_indikator' => 'AP & SP',
+                                ],
+                                [
+                                    'nama_sub_kegiatan' => 'Pelaksanaan Operasional Lembaga Kerjasama Tripartit Daerah Kabupaten/Kota',
+                                    'nama_indikator' => 'Jumlah LKS Tripartit yang Dibina',
+                                    'jumlah_indikator' => 1,
+                                    'tipe_indikator' => 'Lembaga',
                                 ],
                                 // Tambahkan sub-kegiatan lainnya
                             ],
