@@ -23,7 +23,7 @@ public function handle($request, Closure $next, $role)
     }
 
     // Redirect jika role tidak sesuai
-    return redirect('/');
+        return redirect()->route('dashboard')->with('error', 'Unauthorized access.');
 }
 
 }
