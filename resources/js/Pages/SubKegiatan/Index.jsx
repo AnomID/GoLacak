@@ -2,10 +2,15 @@ import React from "react";
 import { Link } from "@inertiajs/inertia-react";
 import { Inertia } from "@inertiajs/inertia";
 
-const IndexSubKegiatan = ({ subKegiatan, kegiatan }) => {
+const IndexSubKegiatan = ({ subkegiatan, kegiatan }) => {
     const handleDelete = (id) => {
         if (confirm("Are you sure you want to delete this sub kegiatan?")) {
-            Inertia.delete(route("subkegiatan.destroy", id));
+            Inertia.delete(
+                route("subkegiatan.destroy", {
+                    kegiatan: kegiatan.id,
+                    subkegiatan: id,
+                })
+            );
         }
     };
 
@@ -13,7 +18,7 @@ const IndexSubKegiatan = ({ subKegiatan, kegiatan }) => {
         <div>
             <h1>Sub Kegiatan for {kegiatan.nama_kegiatan}</h1>
             <Link
-                href={route("subkegiatan.create", kegiatan.id)} // Mengarahkan ke form untuk menambah sub kegiatan
+                href={route("subkegiatan.create", kegiatan.id)}
                 className="btn btn-primary"
             >
                 Add Sub Kegiatan
@@ -26,24 +31,24 @@ const IndexSubKegiatan = ({ subKegiatan, kegiatan }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {subKegiatan.length > 0 ? (
-                        subKegiatan.map((subKegiatanItem) => (
-                            <tr key={subKegiatanItem.id}>
-                                <td>{subKegiatanItem.nama_sub_kegiatan}</td>
+                    {subkegiatan.length > 0 ? (
+                        subkegiatan.map((subkegiatanItem) => (
+                            <tr key={subkegiatanItem.id}>
+                                <td>{subkegiatanItem.nama_subkegiatan}</td>
                                 <td>
                                     <Link
-                                        href={route(
-                                            "subkegiatan.edit",
-                                            subKegiatanItem.id
-                                        )} // Mengarahkan ke form edit sub kegiatan
+                                        href={route("subkegiatan.edit", {
+                                            kegiatan: kegiatan.id,
+                                            subkegiatan: subkegiatanItem.id,
+                                        })}
                                         className="btn btn-sm btn-warning"
                                     >
                                         Edit
                                     </Link>
                                     <button
                                         onClick={() =>
-                                            handleDelete(subKegiatanItem.id)
-                                        } // Menghapus sub kegiatan
+                                            handleDelete(subkegiatanItem.id)
+                                        }
                                         className="btn btn-sm btn-danger"
                                     >
                                         Delete

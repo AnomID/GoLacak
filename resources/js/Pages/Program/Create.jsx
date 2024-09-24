@@ -26,7 +26,7 @@ const CreateProgram = ({ bulan }) => {
             penyerapan_anggaran: data.penyerapan_anggaran || 0,
             persen_penyerapan_anggaran: data.persen_penyerapan_anggaran || 0,
         };
-        post(route("program.store"), { data: formData });
+        post(route("program.store", { bulan: bulan.id }), { data: formData });
     };
 
     return (

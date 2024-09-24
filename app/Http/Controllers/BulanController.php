@@ -10,14 +10,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
-
 class BulanController extends Controller
 {
-    public function index()
-    {
-        $bulan = Bulan::all();
-        return Inertia::render('Bulan/Index', ['bulan' => $bulan]);
-    }
+public function index()
+{
+    // Urutkan berdasarkan 'created_at' secara ascending agar yang baru di bawah
+    $bulan = Bulan::orderBy('created_at', 'asc')->get();
+    return Inertia::render('Bulan/Index', ['bulan' => $bulan]);
+}
+
+public function userBulanIndex()
+{
+    // Urutkan berdasarkan 'created_at' secara ascending agar yang baru di bawah
+    $bulan = Bulan::orderBy('created_at', 'asc')->get();
+    return Inertia::render('User/Bulan/Index', ['bulan' => $bulan]);
+}
 
     public function create()
     {
@@ -31,10 +38,10 @@ class BulanController extends Controller
         ]);
 
         DB::transaction(function () use ($request) {
-            // Membuat bulan baru
             $bulan = Bulan::create($request->only('bulan'));
 
-            // Daftar program yang akan dibuat
+            // Tambah program, kegiatan, sub-kegiatan secara otomatis di sini 
+                        // Daftar program yang akan dibuat
             $programs = [
                 [
                     'nama_program' => 'PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN/KOTA',
@@ -635,8 +642,7 @@ Perubahan RKA-SKPD',
             }
         });
 
-        return redirect()->route('bulan.index')
-                         ->with('success', 'Bulan beserta program, kegiatan, dan sub kegiatan berhasil dibuat.');
+        return redirect()->route('admin.bulan.index')->with('success', 'Bulan beserta program, kegiatan, dan sub kegiatan berhasil dibuat.');
     }
 
     public function edit(Bulan $bulan)
@@ -646,18 +652,18 @@ Perubahan RKA-SKPD',
     
     public function update(Request $request, Bulan $bulan)
     {
-    $request->validate([
-        'bulan' => 'required|string|max:255',  // Validasi string
-    ]);
+        $request->validate([
+            'bulan' => 'required|string|max:255',
+        ]);
 
-    $bulan->update($request->only('bulan'));
+        $bulan->update($request->only('bulan'));
 
-    return redirect()->route('bulan.index')->with('success', 'Bulan updated successfully.');
-}
+        return redirect()->route('admin.bulan.index')->with('success', 'Bulan updated successfully.');
+    }
 
     public function destroy(Bulan $bulan)
     {
         $bulan->delete();
-        return redirect()->route('bulan.index')->with('success', 'Bulan deleted successfully.');
+        return redirect()->route('admin.bulan.index')->with('success', 'Bulan deleted successfully.');
     }
 }

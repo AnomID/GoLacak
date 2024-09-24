@@ -25,7 +25,9 @@ const CreateSubKegiatan = ({ kegiatan }) => {
             penyerapan_anggaran: data.penyerapan_anggaran || 0,
             persen_penyerapan_anggaran: data.persen_penyerapan_anggaran || 0,
         };
-        post(route("subkegiatan.store"), { data: formData });
+        post(route("subkegiatan.store", { kegiatan: kegiatan.id }), {
+            data: formData,
+        });
     };
 
     return (
@@ -166,7 +168,9 @@ const CreateSubKegiatan = ({ kegiatan }) => {
                 />
 
                 <button type="submit">Submit</button>
-                <Link href={route("kegiatan.index", kegiatan.id)}>Cancel</Link>
+                <Link href={route("subkegiatan.index", kegiatan.id)}>
+                    Cancel
+                </Link>
             </form>
         </div>
     );

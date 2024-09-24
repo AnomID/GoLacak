@@ -5,7 +5,7 @@ import { Inertia } from "@inertiajs/inertia";
 const BulanIndex = ({ bulan }) => {
     const handleDelete = (id) => {
         if (confirm("Are you sure you want to delete this month?")) {
-            Inertia.delete(route("bulan.destroy", id)); // Menggunakan Inertia untuk delete
+            Inertia.delete(route("admin.bulan.destroy", id)); // Menggunakan Inertia untuk delete
         }
     };
 
@@ -16,7 +16,7 @@ const BulanIndex = ({ bulan }) => {
             {/* Tambahkan tombol Add Bulan di sini */}
             <div style={{ marginBottom: "20px" }}>
                 <Link
-                    href={route("bulan.create")}
+                    href={route("admin.bulan.create")}
                     className="btn btn-sm btn-primary"
                 >
                     Add Bulan
@@ -40,7 +40,7 @@ const BulanIndex = ({ bulan }) => {
                             </td>
                             <td>
                                 <Link
-                                    href={route("bulan.edit", item.id)}
+                                    href={route("admin.bulan.edit", item.id)}
                                     className="btn btn-sm btn-warning"
                                 >
                                     Edit

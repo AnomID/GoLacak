@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Program;
@@ -8,15 +9,31 @@ use Inertia\Inertia;
 
 class ProgramController extends Controller
 {
+    // Menampilkan daftar program berdasarkan bulan
     public function index(Bulan $bulan)
     {
+    // Urutkan program berdasarkan 'created_at' secara ascending agar data terbaru ada di paling bawah
+    $programs = Program::where('bulan_id', $bulan->id)
+                ->orderBy('created_at', 'asc')  // Gunakan 'asc' untuk menempatkan yang baru di bawah
+                ->get();
+    
+    return Inertia::render('Program/Index', [
+        'programs' => $programs,
+        'bulan' => $bulan,
+    ]);
+}
+
+    // User melihat program di dalam bulan
+    public function userProgramIndex(Bulan $bulan)
+    {
         $programs = Program::where('bulan_id', $bulan->id)->get();
-        return Inertia::render('Program/Index', [
+        return Inertia::render('User/Program/Index', [
             'programs' => $programs,
             'bulan' => $bulan,
         ]);
     }
 
+    // Form untuk menambahkan program baru
     public function create(Bulan $bulan)
     {
         return Inertia::render('Program/Create', [
@@ -24,35 +41,28 @@ class ProgramController extends Controller
         ]);
     }
 
-public function store(Request $request)
-{
-    $request->validate([
-        'nama_program' => 'required|string|max:255',
-        'nama_indikator' => 'required|string|max:255',
-        'jumlah_indikator' => 'required|integer',
-        'tipe_indikator' => 'required|string|max:255',
-        'anggaran_murni' => 'nullable|numeric',
-        'pergeseran' => 'nullable|numeric',
-        'perubahan' => 'nullable|numeric',
-        'penyerapan_anggaran' => 'nullable|numeric',
-        'persen_penyerapan_anggaran' => 'nullable|numeric',
-        'bulan_id' => 'required|exists:bulan,id',
-    ]);
+    // Menyimpan data program baru
+    public function store(Request $request)
+    {
+        $request->validate([
+            'nama_program' => 'required|string|max:255',
+            'nama_indikator' => 'required|string|max:255',
+            'jumlah_indikator' => 'required|integer',
+            'tipe_indikator' => 'required|string|max:255',
+            'anggaran_murni' => 'nullable|numeric',
+            'pergeseran' => 'nullable|numeric',
+            'perubahan' => 'nullable|numeric',
+            'penyerapan_anggaran' => 'nullable|numeric',
+            'persen_penyerapan_anggaran' => 'nullable|numeric',
+            'bulan_id' => 'required|exists:bulan,id',
+        ]);
 
-    // Set default value to 0 if fields are not filled
-    $data = $request->all();
-    $data['anggaran_murni'] = $data['anggaran_murni'] ?? 0;
-    $data['pergeseran'] = $data['pergeseran'] ?? 0;
-    $data['perubahan'] = $data['perubahan'] ?? 0;
-    $data['penyerapan_anggaran'] = $data['penyerapan_anggaran'] ?? 0;
-    $data['persen_penyerapan_anggaran'] = $data['persen_penyerapan_anggaran'] ?? 0;
+        Program::create($request->all());
 
-    Program::create($data);
+        return redirect()->route('program.index', $request->bulan_id)->with('success', 'Program created successfully.');
+    }
 
-    return redirect()->route('program.index', $request->bulan_id)
-                     ->with('success', 'Program created successfully.');
-}
-
+    // Form edit program
     public function edit(Program $program)
     {
         return Inertia::render('Program/Edit', [
@@ -60,40 +70,54 @@ public function store(Request $request)
         ]);
     }
 
+    // Update program
     public function update(Request $request, Program $program)
-{
-    $request->validate([
-        'nama_program' => 'required|string|max:255',
-        'nama_indikator' => 'required|string|max:255',
-        'jumlah_indikator' => 'required|integer',
-        'tipe_indikator' => 'required|string|max:255',
-        'anggaran_murni' => 'nullable|numeric',
-        'pergeseran' => 'nullable|numeric',
-        'perubahan' => 'nullable|numeric',
-        'penyerapan_anggaran' => 'nullable|numeric',
-        'persen_penyerapan_anggaran' => 'nullable|numeric',
-        'bulan_id' => 'required|exists:bulan,id',
-    ]);
-
-    $data = $request->all();
-    $data['anggaran_murni'] = $data['anggaran_murni'] ?? 0;
-    $data['pergeseran'] = $data['pergeseran'] ?? 0;
-    $data['perubahan'] = $data['perubahan'] ?? 0;
-    $data['penyerapan_anggaran'] = $data['penyerapan_anggaran'] ?? 0;
-    $data['persen_penyerapan_anggaran'] = $data['persen_penyerapan_anggaran'] ?? 0;
-
-    $program->update($data);
-
-    return redirect()->route('program.index', $program->bulan_id)
-                     ->with('success', 'Program updated successfully.');
-}
-    
-    public function destroy(Program $program)
     {
-    $program->delete();
+        $request->validate([
+            'nama_program' => 'required|string|max:255',
+            'nama_indikator' => 'required|string|max:255',
+            'jumlah_indikator' => 'required|integer',
+            'tipe_indikator' => 'required|string|max:255',
+            'anggaran_murni' => 'nullable|numeric',
+            'pergeseran' => 'nullable|numeric',
+            'perubahan' => 'nullable|numeric',
+            'penyerapan_anggaran' => 'nullable|numeric',
+            'persen_penyerapan_anggaran' => 'nullable|numeric',
+            'bulan_id' => 'required|exists:bulan,id',
+        ]);
 
-    return redirect()->route('program.index', $program->bulan_id)
-                     ->with('success', 'Program deleted successfully.');
+        $program->update($request->all());
+
+        return redirect()->route('program.index', $program->bulan_id)->with('success', 'Program updated successfully.');
     }
 
+    // Menghapus program
+    public function destroy(Program $program)
+    {
+        $program->delete();
+
+        return redirect()->route('program.index', $program->bulan_id)->with('success', 'Program deleted successfully.');
+    }
+
+    // User mengupdate anggaran program
+    public function updateAnggaran(Request $request, Program $program)
+    {
+        $request->validate([
+            'anggaran_murni' => 'nullable|numeric',
+            'pergeseran' => 'nullable|numeric',
+            'perubahan' => 'nullable|numeric',
+            'penyerapan_anggaran' => 'nullable|numeric',
+            'persen_penyerapan_anggaran' => 'nullable|numeric',
+        ]);
+
+        $program->update($request->only([
+            'anggaran_murni', 
+            'pergeseran', 
+            'perubahan', 
+            'penyerapan_anggaran', 
+            'persen_penyerapan_anggaran'
+        ]));
+
+        return redirect()->route('user.program.index', $program->bulan_id)->with('success', 'Anggaran updated successfully.');
+    }
 }

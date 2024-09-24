@@ -20,7 +20,7 @@ const BulanEdit = ({ bulan }) => {
 
     const submit = (e) => {
         e.preventDefault();
-        put(route("bulan.update", bulan.id));
+        put(route("admin.bulan.update", bulan.id));
     };
 
     return (
@@ -39,7 +39,7 @@ const BulanEdit = ({ bulan }) => {
                     {errors.bulan && <div>{errors.bulan}</div>}
                 </div>
                 <button type="submit">Submit</button>
-                <Link href={route("bulan.index")}>Cancel</Link>
+                <Link href={route("admin.bulan.index")}>Cancel</Link>
             </form>
         </div>
     );

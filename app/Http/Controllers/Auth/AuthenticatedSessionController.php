@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,29 +26,35 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-public function store(Request $request)
-{
-    $credentials = $request->validate([
-        'email' => 'required|email',
-        'password' => 'required',
-    ]);
+    public function store(Request $request): RedirectResponse
+    {
+        // Validasi input email dan password
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
-    if (Auth::attempt($credentials)) {
-        $request->session()->regenerate();
+        // Rate limiting untuk membatasi jumlah percobaan login
+        $this->middleware('throttle:5,1'); // Batas 5 percobaan per menit
 
-        // Redirect berdasarkan role
-        if (Auth::user()->role === 'admin') {
-            return redirect()->route('admin.bulan');
-        } else {
-            return redirect()->route('dashboard');
+        // Coba otentikasi user
+        if (Auth::attempt($credentials)) {
+            // Regenerasi sesi untuk keamanan (mencegah serangan sesi)
+            $request->session()->regenerate();
+
+            // Cek role user untuk mengarahkan ke halaman yang sesuai
+            if (Auth::user()->role === 'admin') {
+                return redirect()->route('admin.bulan.index'); // Halaman untuk admin
+            } else {
+                return redirect()->route('user.bulan.index'); // Halaman untuk user
+            }
         }
+
+        // Jika gagal login, kembalikan pesan error
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->withInput();
     }
-
-    return back()->withErrors([
-        'email' => 'The provided credentials do not match our records.',
-    ]);
-}
-
 
     /**
      * Destroy an authenticated session.
@@ -59,10 +63,13 @@ public function store(Request $request)
     {
         Auth::guard('web')->logout();
 
+        // Invalidate session
         $request->session()->invalidate();
 
+        // Regenerate CSRF token
         $request->session()->regenerateToken();
 
+        // Redirect to home page
         return redirect('/');
     }
 }

@@ -12,12 +12,12 @@ const BulanCreate = () => {
 
     const handleDateChange = (date) => {
         setStartDate(date);
-        setData("bulan", format(date, "MMMM yyyy")); // Format bulan dan tahun
+        setData("bulan", format(date, "MMMM yyyy"));
     };
 
     const submit = (e) => {
         e.preventDefault();
-        post(route("bulan.store"));
+        post(route("admin.bulan.store")); // Use correct route name
     };
 
     return (
@@ -26,17 +26,16 @@ const BulanCreate = () => {
             <form onSubmit={submit}>
                 <div>
                     <label>Bulan</label>
-                    {/* Menggunakan DatePicker dengan format MMMM yyyy */}
                     <DatePicker
                         selected={startDate}
-                        onChange={(date) => handleDateChange(date)}
-                        dateFormat="MMMM yyyy" // Format tampilan
-                        showMonthYearPicker // Menampilkan hanya bulan dan tahun
+                        onChange={handleDateChange}
+                        dateFormat="MMMM yyyy"
+                        showMonthYearPicker
                     />
                     {errors.bulan && <div>{errors.bulan}</div>}
                 </div>
                 <button type="submit">Submit</button>
-                <Link href={route("bulan.index")}>Cancel</Link>
+                <Link href={route("admin.bulan.index")}>Cancel</Link>
             </form>
         </div>
     );

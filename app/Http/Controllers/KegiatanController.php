@@ -9,54 +9,51 @@ use Inertia\Inertia;
 
 class KegiatanController extends Controller
 {
-    public function index($programId)
+    // Menampilkan daftar kegiatan berdasarkan program
+    public function index(Program $program)
     {
-        $program = Program::find($programId);
-        $kegiatan = Kegiatan::where('program_id', $programId)->get();
+    // Urutkan kegiatan berdasarkan 'created_at' secara ascending agar data terbaru ada di paling bawah
+    $kegiatan = Kegiatan::where('program_id', $program->id)
+                ->orderBy('created_at', 'asc')  // Gunakan 'asc' untuk menempatkan yang baru di bawah
+                ->get();
+    
+    return Inertia::render('Kegiatan/Index', [
+        'kegiatan' => $kegiatan,
+        'program' => $program,
+    ]);
+}
 
-        return Inertia::render('Kegiatan/Index', [
-            'kegiatan' => $kegiatan,
-            'program' => $program,
-        ]);
-    }
 
-    public function create($programId)
+    // Form untuk menambahkan kegiatan baru
+    public function create(Program $program)
     {
-        $program = Program::find($programId);
         return Inertia::render('Kegiatan/Create', [
             'program' => $program,
         ]);
     }
 
-public function store(Request $request)
-{
-    $request->validate([
-        'nama_kegiatan' => 'required|string|max:255',
-        'nama_indikator' => 'required|string|max:255',
-        'jumlah_indikator' => 'required|integer',
-        'tipe_indikator' => 'required|string|max:255',
-        'anggaran_murni' => 'nullable|numeric',
-        'pergeseran' => 'nullable|numeric',
-        'perubahan' => 'nullable|numeric',
-        'penyerapan_anggaran' => 'nullable|numeric',
-        'persen_penyerapan_anggaran' => 'nullable|numeric',
-        'program_id' => 'required|exists:program,id',
-    ]);
+    // Menyimpan kegiatan baru
+    public function store(Request $request)
+    {
+        $request->validate([
+            'nama_kegiatan' => 'required|string|max:255',
+            'nama_indikator' => 'required|string|max:255',
+            'jumlah_indikator' => 'required|integer',
+            'tipe_indikator' => 'required|string|max:255',
+            'anggaran_murni' => 'nullable|numeric',
+            'pergeseran' => 'nullable|numeric',
+            'perubahan' => 'nullable|numeric',
+            'penyerapan_anggaran' => 'nullable|numeric',
+            'persen_penyerapan_anggaran' => 'nullable|numeric',
+            'program_id' => 'required|exists:program,id',
+        ]);
 
-    // Set default value to 0 if fields are not filled
-    $data = $request->all();
-    $data['anggaran_murni'] = $data['anggaran_murni'] ?? 0;
-    $data['pergeseran'] = $data['pergeseran'] ?? 0;
-    $data['perubahan'] = $data['perubahan'] ?? 0;
-    $data['penyerapan_anggaran'] = $data['penyerapan_anggaran'] ?? 0;
-    $data['persen_penyerapan_anggaran'] = $data['persen_penyerapan_anggaran'] ?? 0;
+        Kegiatan::create($request->all());
 
-    Kegiatan::create($data);
+        return redirect()->route('kegiatan.index', $request->program_id)->with('success', 'Kegiatan created successfully.');
+    }
 
-    return redirect()->route('kegiatan.index', $request->program_id)
-                     ->with('success', 'Kegiatan created successfully.');
-}
-
+    // Form edit kegiatan
     public function edit(Kegiatan $kegiatan)
     {
         return Inertia::render('Kegiatan/Edit', [
@@ -64,38 +61,54 @@ public function store(Request $request)
         ]);
     }
 
+    // Mengupdate kegiatan
     public function update(Request $request, Kegiatan $kegiatan)
-{
-    $request->validate([
-        'nama_kegiatan' => 'required|string|max:255',
-        'nama_indikator' => 'required|string|max:255',
-        'jumlah_indikator' => 'required|integer',
-        'tipe_indikator' => 'required|string|max:255',
-        'anggaran_murni' => 'nullable|numeric',
-        'pergeseran' => 'nullable|numeric',
-        'perubahan' => 'nullable|numeric',
-        'penyerapan_anggaran' => 'nullable|numeric',
-        'persen_penyerapan_anggaran' => 'nullable|numeric',
-        'program_id' => 'required|exists:program,id',
-    ]);
+    {
+        $request->validate([
+            'nama_kegiatan' => 'required|string|max:255',
+            'nama_indikator' => 'required|string|max:255',
+            'jumlah_indikator' => 'required|integer',
+            'tipe_indikator' => 'required|string|max:255',
+            'anggaran_murni' => 'nullable|numeric',
+            'pergeseran' => 'nullable|numeric',
+            'perubahan' => 'nullable|numeric',
+            'penyerapan_anggaran' => 'nullable|numeric',
+            'persen_penyerapan_anggaran' => 'nullable|numeric',
+            'program_id' => 'required|exists:program,id',
+        ]);
 
-    $data = $request->all();
-    $data['anggaran_murni'] = $data['anggaran_murni'] ?? 0;
-    $data['pergeseran'] = $data['pergeseran'] ?? 0;
-    $data['perubahan'] = $data['perubahan'] ?? 0;
-    $data['penyerapan_anggaran'] = $data['penyerapan_anggaran'] ?? 0;
-    $data['persen_penyerapan_anggaran'] = $data['persen_penyerapan_anggaran'] ?? 0;
+        $kegiatan->update($request->all());
 
-    $kegiatan->update($data);
+        return redirect()->route('kegiatan.index', $kegiatan->program_id)->with('success', 'Kegiatan updated successfully.');
+    }
 
-    return redirect()->route('kegiatan.index', $kegiatan->program_id)
-                     ->with('success', 'Kegiatan updated successfully.');
-}
-
+    // Menghapus kegiatan
     public function destroy(Kegiatan $kegiatan)
     {
         $kegiatan->delete();
-        return redirect()->route('kegiatan.index', $kegiatan->program_id)
-                         ->with('success', 'Kegiatan deleted successfully.');
+
+        return redirect()->route('kegiatan.index', $kegiatan->program_id)->with('success', 'Kegiatan deleted successfully.');
+    }
+
+    // User mengupdate anggaran kegiatan
+    public function updateAnggaran(Request $request, Kegiatan $kegiatan)
+    {
+        $request->validate([
+            'anggaran_murni' => 'nullable|numeric',
+            'pergeseran' => 'nullable|numeric',
+            'perubahan' => 'nullable|numeric',
+            'penyerapan_anggaran' => 'nullable|numeric',
+            'persen_penyerapan_anggaran' => 'nullable|numeric',
+        ]);
+
+        $kegiatan->update($request->only([
+            'anggaran_murni', 
+            'pergeseran', 
+            'perubahan', 
+            'penyerapan_anggaran', 
+            'persen_penyerapan_anggaran'
+        ]));
+
+        return redirect()->route('user.kegiatan.index', $kegiatan->program_id)->with('success', 'Anggaran updated successfully.');
     }
 }

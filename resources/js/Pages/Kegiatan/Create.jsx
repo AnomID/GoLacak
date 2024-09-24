@@ -25,7 +25,9 @@ const CreateKegiatan = ({ program }) => {
             penyerapan_anggaran: data.penyerapan_anggaran || 0,
             persen_penyerapan_anggaran: data.persen_penyerapan_anggaran || 0,
         };
-        post(route("kegiatan.store"), { data: formData });
+        post(route("kegiatan.store", { program: program.id }), {
+            data: formData,
+        });
     };
 
     return (
@@ -164,7 +166,7 @@ const CreateKegiatan = ({ program }) => {
                 />
 
                 <button type="submit">Submit</button>
-                <Link href={route("program.index", program.id)}>Cancel</Link>
+                <Link href={route("kegiatan.index", program.id)}>Cancel</Link>
             </form>
         </div>
     );
