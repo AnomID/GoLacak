@@ -1,72 +1,25 @@
 import React from "react";
-import { useForm, Link } from "@inertiajs/react";
+import { useForm } from "@inertiajs/react";
+import { Link } from "@inertiajs/inertia-react";
 
-const EditProgram = ({ program }) => {
-    const { data, setData, put, errors } = useForm(program);
+const EditAnggaranProgram = ({ program }) => {
+    const { data, setData, patch, errors } = useForm({
+        anggaran_murni: program.anggaran_murni || 0,
+        pergeseran: program.pergeseran || 0,
+        perubahan: program.perubahan || 0,
+        penyerapan_anggaran: program.penyerapan_anggaran || 0,
+        persen_penyerapan_anggaran: program.persen_penyerapan_anggaran || 0,
+    });
 
     const submit = (e) => {
         e.preventDefault();
-        put(route("program.update", program.id));
+        patch(route("user.program.update-anggaran", program.id));
     };
 
     return (
         <div>
-            <h1>Edit Program</h1>
+            <h1>Update Anggaran for Program: {program.nama_program}</h1>
             <form onSubmit={submit}>
-                <div>
-                    <label>Nama Program</label>
-                    <input
-                        type="text"
-                        value={data.nama_program}
-                        onChange={(e) =>
-                            setData("nama_program", e.target.value)
-                        }
-                    />
-                    {errors.nama_program && <div>{errors.nama_program}</div>}
-                </div>
-
-                <div>
-                    <label>Nama Indikator</label>
-                    <input
-                        type="text"
-                        value={data.nama_indikator}
-                        onChange={(e) =>
-                            setData("nama_indikator", e.target.value)
-                        }
-                    />
-                    {errors.nama_indikator && (
-                        <div>{errors.nama_indikator}</div>
-                    )}
-                </div>
-
-                <div>
-                    <label>Jumlah Indikator</label>
-                    <input
-                        type="number"
-                        value={data.jumlah_indikator}
-                        onChange={(e) =>
-                            setData("jumlah_indikator", e.target.value)
-                        }
-                    />
-                    {errors.jumlah_indikator && (
-                        <div>{errors.jumlah_indikator}</div>
-                    )}
-                </div>
-
-                <div>
-                    <label>Tipe Indikator</label>
-                    <input
-                        type="text"
-                        value={data.tipe_indikator}
-                        onChange={(e) =>
-                            setData("tipe_indikator", e.target.value)
-                        }
-                    />
-                    {errors.tipe_indikator && (
-                        <div>{errors.tipe_indikator}</div>
-                    )}
-                </div>
-
                 <div>
                     <label>Anggaran Murni</label>
                     <input
@@ -134,7 +87,7 @@ const EditProgram = ({ program }) => {
                 </div>
 
                 <button type="submit">Update</button>
-                <Link href={route("program.index", program.bulan_id)}>
+                <Link href={route("user.program.index", program.bulan_id)}>
                     Cancel
                 </Link>
             </form>
@@ -142,4 +95,4 @@ const EditProgram = ({ program }) => {
     );
 };
 
-export default EditProgram;
+export default EditAnggaranProgram;

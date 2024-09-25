@@ -95,7 +95,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 
 // Rute yang bisa diakses oleh User untuk melihat dan mengedit anggaran
-Route::middleware(['auth', 'role:user'])->group(function () {
+    Route::middleware(['auth', 'role:user'])->group(function () {
     // User dapat melihat daftar bulan
     Route::get('/user/bulan', [BulanController::class, 'userBulanIndex'])->name('user.bulan.index');
 
@@ -116,6 +116,16 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 
     // User mengedit anggaran sub-kegiatan
     Route::patch('/user/sub-kegiatan/{subkegiatan}/update-anggaran', [SubKegiatanController::class, 'updateAnggaran'])->name('user.subkegiatan.update-anggaran');
+    // Route untuk melihat program berdasarkan bulan
+    Route::get('/user/program/{bulan}', [ProgramController::class, 'userProgramIndex'])->name('user.program.index');
+    
+    // Route untuk mengedit anggaran program
+    Route::get('/user/program/{program}/edit-anggaran', [ProgramController::class, 'editAnggaran'])->name('user.program.edit-anggaran');
+    
+    // Route untuk mengupdate anggaran program
+    Route::patch('/user/program/{program}/update-anggaran', [ProgramController::class, 'updateAnggaran'])->name('user.program.update-anggaran');
+
+    
 });
 
 // Autentikasi (login, register, dll.)

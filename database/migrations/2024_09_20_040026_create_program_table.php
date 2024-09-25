@@ -4,7 +4,6 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
-
 return new class extends Migration
 {
     /**
@@ -23,22 +22,18 @@ return new class extends Migration
             $table->bigInteger('perubahan');
             $table->bigInteger('penyerapan_anggaran');
             $table->bigInteger('persen_penyerapan_anggaran');
-            $table->uuid('bulan_id');  // Foreign key to bulan table
+            $table->uuid('bulan_id');
             $table->timestamps();
 
             // Foreign Key Constraint
             $table->foreign('bulan_id')->references('id')->on('bulan')->onDelete('cascade');
         });
     }
-
     /**
      * Reverse the migrations.
      */
     public function down()
     {
-        Schema::table('program', function (Blueprint $table) {
-            $table->dropForeign(['bulan_id']);
-        });
         Schema::dropIfExists('program');
     }
 };

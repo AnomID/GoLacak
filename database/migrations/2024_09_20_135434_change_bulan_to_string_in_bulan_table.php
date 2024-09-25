@@ -22,5 +22,5 @@ public function down()
         $table->date('bulan')->change();  // Mengembalikan tipe data ke date jika dibatalkan
     });
 }
-
+    
 };

@@ -127,4 +127,10 @@ class ProgramController extends Controller
 
         return redirect()->route('user.program.index', $program->bulan_id)->with('success', 'Anggaran updated successfully.');
     }
+        public function editAnggaran(Program $program)
+    {
+        return Inertia::render('User/Program/EditAnggaran', [
+            'program' => $program,
+        ]);
+    }
 }
