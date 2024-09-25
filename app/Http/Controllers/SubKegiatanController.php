@@ -2,43 +2,47 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kegiatan;
 use App\Models\SubKegiatan;
+use App\Models\Kegiatan;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class SubKegiatanController extends Controller
 {
-    // Menampilkan daftar Sub Kegiatan berdasarkan Kegiatan
-    public function index(Kegiatan $kegiatan)
-    {
-        // Urutkan sub kegiatan berdasarkan 'created_at' secara ascending agar data terbaru ada di paling bawah
-        $subkegiatan = SubKegiatan::where('kegiatan_id', $kegiatan->id)
-                        ->orderBy('created_at', 'asc')
-                        ->get();
+    // Menampilkan daftar sub-kegiatan berdasarkan kegiatan
+public function index(Kegiatan $kegiatan)
+{
+    // Urutkan sub-kegiatan berdasarkan 'created_at' secara ascending agar data terbaru ada di paling bawah
+    $subKegiatan = SubKegiatan::where('kegiatan_id', $kegiatan->id)
+                ->orderBy('created_at', 'asc')  // Gunakan 'asc' untuk menempatkan yang baru di bawah
+                ->get();
+    
+    return Inertia::render('SubKegiatan/Index', [
+        'subKegiatan' => $subKegiatan,
+        'kegiatan' => $kegiatan,
+    ]);
+} 
 
-        return Inertia::render('SubKegiatan/Index', [
-            'subkegiatan' => $subkegiatan,
-            'kegiatan' => $kegiatan,
-        ]);
-    }
 
-    // Form untuk menambahkan Sub Kegiatan baru
+    // Form untuk menambahkan sub-kegiatan baru
     public function create(Kegiatan $kegiatan)
     {
-        return Inertia::render('SubKegiatan/Create', [
-            'kegiatan' => $kegiatan,
-        ]);
+        return Inertia::render('SubKegiatan/Create', ['kegiatan' => $kegiatan]);
     }
 
-    // Menyimpan Sub Kegiatan baru
+    // Menyimpan sub-kegiatan baru
     public function store(Request $request)
     {
         $request->validate([
-            'nama_subkegiatan' => 'required|string|max:255',
-            'jumlah_subindikator' => 'required|integer',
-            'tipe_subindikator' => 'required|string|max:255',
-            'anggaran_subkegiatan' => 'nullable|numeric',
+            'nama_sub_kegiatan' => 'required|string|max:255',
+            'nama_indikator' => 'required|string|max:255',
+            'jumlah_indikator' => 'required|integer',
+            'tipe_indikator' => 'required|string|max:255',
+            'anggaran_murni' => 'nullable|numeric',
+            'pergeseran' => 'nullable|numeric',
+            'perubahan' => 'nullable|numeric',
+            'penyerapan_anggaran' => 'nullable|numeric',
+            'persen_penyerapan_anggaran' => 'nullable|numeric',
             'kegiatan_id' => 'required|exists:kegiatan,id',
         ]);
 
@@ -47,35 +51,63 @@ class SubKegiatanController extends Controller
         return redirect()->route('subkegiatan.index', $request->kegiatan_id)->with('success', 'Sub Kegiatan created successfully.');
     }
 
-    // Form edit Sub Kegiatan
-    public function edit(SubKegiatan $subkegiatan)
+    // Form edit sub-kegiatan
+    public function edit(SubKegiatan $subKegiatan)
     {
-        return Inertia::render('SubKegiatan/Edit', [
-            'subkegiatan' => $subkegiatan,
+    return Inertia::render('SubKegiatan/Edit', [
+        'subkegiatan' => $subKegiatan,
         ]);
     }
 
-    // Mengupdate Sub Kegiatan
-    public function update(Request $request, SubKegiatan $subkegiatan)
+    // Mengupdate sub-kegiatan
+    public function update(Request $request, SubKegiatan $subKegiatan)
     {
         $request->validate([
-            'nama_subkegiatan' => 'required|string|max:255',
-            'jumlah_subindikator' => 'required|integer',
-            'tipe_subindikator' => 'required|string|max:255',
-            'anggaran_subkegiatan' => 'nullable|numeric',
-            'kegiatan_id' => 'required|exists:kegiatan,id',
+            'nama_sub_kegiatan' => 'required|string|max:255',
+            'nama_indikator' => 'required|string|max:255',
+            'jumlah_indikator' => 'required|integer',
+            'tipe_indikator' => 'required|string|max:255',
+            'anggaran_murni' => 'nullable|numeric',
+            'pergeseran' => 'nullable|numeric',
+            'perubahan' => 'nullable|numeric',
+            'penyerapan_anggaran' => 'nullable|numeric',
+            'persen_penyerapan_anggaran' => 'nullable|numeric',
         ]);
 
-        $subkegiatan->update($request->all());
+        $subKegiatan->update($request->all());
 
-        return redirect()->route('subkegiatan.index', $subkegiatan->kegiatan_id)->with('success', 'Sub Kegiatan updated successfully.');
+        return redirect()->route('subkegiatan.index', $subKegiatan->kegiatan_id)->with('success', 'Sub Kegiatan updated successfully.');
     }
 
-    // Menghapus Sub Kegiatan
-    public function destroy(SubKegiatan $subkegiatan)
+    // Menghapus sub-kegiata
+public function destroy(SubKegiatan $subKegiatan)
     {
-        $subkegiatan->delete();
+        $subKegiatan->delete();
 
-        return redirect()->route('subkegiatan.index', $subkegiatan->kegiatan_id)->with('success', 'Sub Kegiatan deleted successfully.');
+        return redirect()->route('subkegiatan.index', $subKegiatan->kegiatan_id)->with('success', 'Sub Kegiatan deleted successfully.');
+    }
+
+
+
+    // User mengupdate anggaran sub-kegiatan
+    public function updateAnggaran(Request $request, SubKegiatan $subKegiatan)
+    {
+        $request->validate([
+            'anggaran_murni' => 'nullable|numeric',
+            'pergeseran' => 'nullable|numeric',
+            'perubahan' => 'nullable|numeric',
+            'penyerapan_anggaran' => 'nullable|numeric',
+            'persen_penyerapan_anggaran' => 'nullable|numeric',
+        ]);
+
+        $subKegiatan->update($request->only([
+            'anggaran_murni', 
+            'pergeseran', 
+            'perubahan', 
+            'penyerapan_anggaran', 
+            'persen_penyerapan_anggaran'
+        ]));
+
+        return redirect()->route('user.subkegiatan.index', $subKegiatan->kegiatan_id)->with('success', 'Anggaran updated successfully.');
     }
 }
