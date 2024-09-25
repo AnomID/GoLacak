@@ -56,8 +56,15 @@ class ProgramController extends Controller
             'persen_penyerapan_anggaran' => 'nullable|numeric',
             'bulan_id' => 'required|exists:bulan,id',
         ]);
+        // Pastikan semua anggaran memiliki nilai default 0 jika null
+        $data = $request->all();
+        $data['anggaran_murni'] = $data['anggaran_murni'] ?? 0;
+        $data['pergeseran'] = $data['pergeseran'] ?? 0;
+        $data['perubahan'] = $data['perubahan'] ?? 0;
+        $data['penyerapan_anggaran'] = $data['penyerapan_anggaran'] ?? 0;
+        $data['persen_penyerapan_anggaran'] = $data['persen_penyerapan_anggaran'] ?? 0;
 
-        Program::create($request->all());
+        Program::create($data);
 
         return redirect()->route('program.index', $request->bulan_id)->with('success', 'Program created successfully.');
     }

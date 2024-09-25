@@ -45,9 +45,15 @@ public function index(Kegiatan $kegiatan)
             'persen_penyerapan_anggaran' => 'nullable|numeric',
             'kegiatan_id' => 'required|exists:kegiatan,id',
         ]);
+        // Pastikan semua anggaran memiliki nilai default 0 jika null
+        $data = $request->all();
+        $data['anggaran_murni'] = $data['anggaran_murni'] ?? 0;
+        $data['pergeseran'] = $data['pergeseran'] ?? 0;
+        $data['perubahan'] = $data['perubahan'] ?? 0;
+        $data['penyerapan_anggaran'] = $data['penyerapan_anggaran'] ?? 0;
+        $data['persen_penyerapan_anggaran'] = $data['persen_penyerapan_anggaran'] ?? 0;
 
-        SubKegiatan::create($request->all());
-
+        SubKegiatan::create($data);
         return redirect()->route('subkegiatan.index', $request->kegiatan_id)->with('success', 'Sub Kegiatan created successfully.');
     }
 
