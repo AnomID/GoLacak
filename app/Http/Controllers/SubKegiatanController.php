@@ -93,6 +93,17 @@ public function destroy(SubKegiatan $subKegiatan)
         return redirect()->route('subkegiatan.index', $subKegiatan->kegiatan_id)->with('success', 'Sub Kegiatan deleted successfully.');
     }
 
+    public function userSubKegiatanIndex(Kegiatan $kegiatan)
+    {
+    // Ambil data sub kegiatan yang sesuai dengan kegiatan
+    $subKegiatan = SubKegiatan::where('kegiatan_id', $kegiatan->id)->get();
+    
+    // Kirim data ke Inertia untuk digunakan di React
+    return Inertia::render('User/SubKegiatan/Index', [
+        'subkegiatan' => $subKegiatan,
+        'kegiatan' => $kegiatan,
+    ]);
+    }
 
 
     // User mengupdate anggaran sub-kegiatan
@@ -115,5 +126,12 @@ public function destroy(SubKegiatan $subKegiatan)
         ]));
 
         return redirect()->route('user.subkegiatan.index', $subKegiatan->kegiatan_id)->with('success', 'Anggaran updated successfully.');
+    }
+
+        public function editAnggaran(SubKegiatan $subKegiatan)
+    {
+        return Inertia::render('User/SubKegiatan/EditAnggaran', [
+            'subkegiatan' => $subKegiatan,
+        ]);
     }
 }

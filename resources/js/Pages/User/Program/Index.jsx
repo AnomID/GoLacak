@@ -21,7 +21,16 @@ const ProgramIndex = ({ programs, bulan }) => {
                     {programs.length > 0 ? (
                         programs.map((program) => (
                             <tr key={program.id}>
-                                <td>{program.nama_program}</td>
+                                <td>
+                                    <Link
+                                        href={route(
+                                            "user.kegiatan.index",
+                                            program.id
+                                        )}
+                                    >
+                                        {program.nama_program}
+                                    </Link>
+                                </td>
                                 <td>{program.anggaran_murni}</td>
                                 <td>{program.pergeseran}</td>
                                 <td>{program.perubahan}</td>
@@ -36,14 +45,8 @@ const ProgramIndex = ({ programs, bulan }) => {
                                         )}
                                         className="btn btn-sm btn-warning"
                                     >
-                                        Edit
+                                        Update Anggaran
                                     </Link>
-                                    <button
-                                        onClick={() => handleDelete(program.id)}
-                                        className="btn btn-sm btn-danger"
-                                    >
-                                        Delete
-                                    </button>
                                 </td>
                             </tr>
                         ))

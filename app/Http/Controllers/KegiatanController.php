@@ -99,6 +99,16 @@ class KegiatanController extends Controller
         return redirect()->route('kegiatan.index', $kegiatan->program_id)->with('success', 'Kegiatan deleted successfully.');
     }
 
+        // User melihat kegiatan di dalam program
+    public function userKegiatanIndex(Program $program)
+    {
+        $kegiatan = Kegiatan::where('program_id', $program->id)->get();
+        return Inertia::render('User/Kegiatan/Index', [
+            'kegiatan' => $kegiatan,
+            'program' => $program,
+        ]);
+    }
+
     // User mengupdate anggaran kegiatan
     public function updateAnggaran(Request $request, Kegiatan $kegiatan)
     {
@@ -119,5 +129,12 @@ class KegiatanController extends Controller
         ]));
 
         return redirect()->route('user.kegiatan.index', $kegiatan->program_id)->with('success', 'Anggaran updated successfully.');
+    }
+
+    public function editAnggaran(Kegiatan $kegiatan)
+    {
+        return Inertia::render('User/Kegiatan/EditAnggaran', [
+            'kegiatan' => $kegiatan,
+        ]);
     }
 }

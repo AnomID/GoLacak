@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
 
-const SubKegiatanIndex = ({ subKegiatan, kegiatan }) => {
+const SubKegiatanIndex = ({ subkegiatan, kegiatan }) => {
     return (
         <div>
             <h1>Sub Kegiatan for Kegiatan: {kegiatan.nama_kegiatan}</h1>
@@ -18,8 +18,8 @@ const SubKegiatanIndex = ({ subKegiatan, kegiatan }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {subKegiatan.length > 0 ? (
-                        subKegiatan.map((subKeg) => (
+                    {subkegiatan.length > 0 ? (
+                        subkegiatan.map((subKeg) => (
                             <tr key={subKeg.id}>
                                 <td>{subKeg.nama_sub_kegiatan}</td>
                                 <td>{subKeg.anggaran_murni}</td>
@@ -30,7 +30,7 @@ const SubKegiatanIndex = ({ subKegiatan, kegiatan }) => {
                                 <td>
                                     <Link
                                         href={route(
-                                            "user.subkegiatan.update-anggaran",
+                                            "user.subkegiatan.edit-anggaran",
                                             subKeg.id
                                         )}
                                         className="btn btn-sm btn-primary"

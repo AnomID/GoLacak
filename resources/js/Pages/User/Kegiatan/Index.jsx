@@ -21,7 +21,16 @@ const KegiatanIndex = ({ kegiatan, program }) => {
                     {kegiatan.length > 0 ? (
                         kegiatan.map((keg) => (
                             <tr key={keg.id}>
-                                <td>{keg.nama_kegiatan}</td>
+                                <td>
+                                    <Link
+                                        href={route(
+                                            "user.subkegiatan.index",
+                                            keg.id
+                                        )}
+                                    >
+                                        {keg.nama_kegiatan}
+                                    </Link>
+                                </td>{" "}
                                 <td>{keg.anggaran_murni}</td>
                                 <td>{keg.pergeseran}</td>
                                 <td>{keg.perubahan}</td>
@@ -30,7 +39,7 @@ const KegiatanIndex = ({ kegiatan, program }) => {
                                 <td>
                                     <Link
                                         href={route(
-                                            "user.kegiatan.update-anggaran",
+                                            "user.kegiatan.edit-anggaran",
                                             keg.id
                                         )}
                                         className="btn btn-sm btn-primary"

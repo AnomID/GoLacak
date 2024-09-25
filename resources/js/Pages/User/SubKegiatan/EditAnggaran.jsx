@@ -1,25 +1,26 @@
 import React from "react";
-import { useForm, Link } from "@inertiajs/react";
+import { useForm } from "@inertiajs/react";
+import { Link } from "@inertiajs/inertia-react";
 
-const EditAnggaranSubKegiatan = ({ subKegiatan }) => {
-    const { data, setData, put, errors } = useForm({
-        anggaran_murni: subKegiatan.anggaran_murni || 0,
-        pergeseran: subKegiatan.pergeseran || 0,
-        perubahan: subKegiatan.perubahan || 0,
-        penyerapan_anggaran: subKegiatan.penyerapan_anggaran || 0,
-        persen_penyerapan_anggaran: subKegiatan.persen_penyerapan_anggaran || 0,
+const EditAnggaranSubKegiatan = ({ subkegiatan }) => {
+    const { data, setData, patch, errors } = useForm({
+        anggaran_murni: subkegiatan.anggaran_murni || 0,
+        pergeseran: subkegiatan.pergeseran || 0,
+        perubahan: subkegiatan.perubahan || 0,
+        penyerapan_anggaran: subkegiatan.penyerapan_anggaran || 0,
+        persen_penyerapan_anggaran: subkegiatan.persen_penyerapan_anggaran || 0,
     });
 
     const submit = (e) => {
         e.preventDefault();
-        put(route("user.subkegiatan.update-anggaran", subKegiatan.id));
+        patch(route("user.subkegiatan.update-anggaran", subkegiatan.id));
     };
 
     return (
         <div>
             <h1>
                 Update Anggaran for Sub Kegiatan:{" "}
-                {subKegiatan.nama_sub_kegiatan}
+                {subkegiatan.nama_sub_kegiatan}
             </h1>
             <form onSubmit={submit}>
                 <div>
@@ -92,7 +93,7 @@ const EditAnggaranSubKegiatan = ({ subKegiatan }) => {
                 <Link
                     href={route(
                         "user.subkegiatan.index",
-                        subKegiatan.kegiatan_id
+                        { kegiatan: subkegiatan.kegiatan_id } // Pastikan parameter 'kegiatan' disertakan
                     )}
                 >
                     Cancel

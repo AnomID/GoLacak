@@ -103,27 +103,28 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/user/program/{bulan}', [ProgramController::class, 'userProgramIndex'])->name('user.program.index');
 
     // User mengedit anggaran program
+    Route::get('/user/program/{program}/edit-anggaran', [ProgramController::class, 'editAnggaran'])->name('user.program.edit-anggaran');
+
     Route::patch('/user/program/{program}/update-anggaran', [ProgramController::class, 'updateAnggaran'])->name('user.program.update-anggaran');
 
+    
     // User dapat melihat daftar kegiatan di program tertentu
     Route::get('/user/kegiatan/program/{program}', [KegiatanController::class, 'userKegiatanIndex'])->name('user.kegiatan.index');
 
     // User mengedit anggaran kegiatan
+    Route::get('/user/kegiatan/{kegiatan}/edit-anggaran', [KegiatanController::class, 'editAnggaran'])->name('user.kegiatan.edit-anggaran');
     Route::patch('/user/kegiatan/{kegiatan}/update-anggaran', [KegiatanController::class, 'updateAnggaran'])->name('user.kegiatan.update-anggaran');
 
+    
     // User dapat melihat daftar sub-kegiatan di kegiatan tertentu
     Route::get('/user/sub-kegiatan/kegiatan/{kegiatan}', [SubKegiatanController::class, 'userSubKegiatanIndex'])->name('user.subkegiatan.index');
-
     // User mengedit anggaran sub-kegiatan
+    Route::get('/user/sub-kegiatan/{subkegiatan}/edit-anggaran', [SubKegiatanController::class, 'editAnggaran'])->name('user.subkegiatan.edit-anggaran');
     Route::patch('/user/sub-kegiatan/{subkegiatan}/update-anggaran', [SubKegiatanController::class, 'updateAnggaran'])->name('user.subkegiatan.update-anggaran');
-    // Route untuk melihat program berdasarkan bulan
-    Route::get('/user/program/{bulan}', [ProgramController::class, 'userProgramIndex'])->name('user.program.index');
     
-    // Route untuk mengedit anggaran program
-    Route::get('/user/program/{program}/edit-anggaran', [ProgramController::class, 'editAnggaran'])->name('user.program.edit-anggaran');
-    
-    // Route untuk mengupdate anggaran program
-    Route::patch('/user/program/{program}/update-anggaran', [ProgramController::class, 'updateAnggaran'])->name('user.program.update-anggaran');
+        
+    // // Route untuk mengupdate anggaran program
+    // Route::patch('/user/program/{program}/update-anggaran', [ProgramController::class, 'updateAnggaran'])->name('user.program.update-anggaran');
 
     
 });

@@ -2,7 +2,7 @@ import React from "react";
 import { useForm, Link } from "@inertiajs/react";
 
 const EditAnggaranKegiatan = ({ kegiatan }) => {
-    const { data, setData, put, errors } = useForm({
+    const { data, setData, patch, errors } = useForm({
         anggaran_murni: kegiatan.anggaran_murni || 0,
         pergeseran: kegiatan.pergeseran || 0,
         perubahan: kegiatan.perubahan || 0,
@@ -12,7 +12,7 @@ const EditAnggaranKegiatan = ({ kegiatan }) => {
 
     const submit = (e) => {
         e.preventDefault();
-        put(route("user.kegiatan.update-anggaran", kegiatan.id));
+        patch(route("user.kegiatan.update-anggaran", kegiatan.id));
     };
 
     return (
