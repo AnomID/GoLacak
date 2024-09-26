@@ -18,7 +18,22 @@ const EditAnggaranProgram = ({ program }) => {
 
     return (
         <div>
-            <h1>Update Anggaran for Program: {program.nama_program}</h1>
+            <h1>
+                Update Anggaran for Program:
+                {program.nama_program}
+            </h1>
+            <h1>
+                Nama Indikator:
+                {program.nama_indikator}
+            </h1>
+            <h1>
+                Jumlah Indikator:
+                {program.jumlah_indikator}
+            </h1>
+            <h1>
+                Tipe Indikator:
+                {program.tipe_indikator}
+            </h1>
             <form onSubmit={submit}>
                 <div>
                     <label>Anggaran Murni</label>

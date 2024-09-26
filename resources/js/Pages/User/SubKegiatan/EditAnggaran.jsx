@@ -20,6 +20,19 @@ const EditAnggaranSubKegiatan = ({ subKegiatan }) => {
                 Update Anggaran for Sub Kegiatan:
                 {subKegiatan.nama_sub_kegiatan}
             </h1>
+            <br />
+            <h1>Nama Indikator: {subKegiatan.nama_indikator}</h1>
+            <br />
+
+            <h1>
+                Jumlah Indikator:
+                {subKegiatan.jumlah_indikator}
+            </h1>
+            <br />
+
+            <h1>Tipe Indikator :{subKegiatan.tipe_indikator}</h1>
+            <br />
+
             <form onSubmit={submit}>
                 <div>
                     <label>Anggaran Murni</label>

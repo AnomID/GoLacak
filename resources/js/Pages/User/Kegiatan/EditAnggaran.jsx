@@ -17,7 +17,22 @@ const EditAnggaranKegiatan = ({ kegiatan }) => {
 
     return (
         <div>
-            <h1>Update Anggaran for Kegiatan: {kegiatan.nama_kegiatan}</h1>
+            <h1>
+                Update Anggaran for Kegiatan:
+                {kegiatan.nama_kegiatan}
+            </h1>
+            <h1>
+                Nama Indikator:
+                {kegiatan.nama_indikator}
+            </h1>
+            <h1>
+                Jumlah Indikator:
+                {kegiatan.jumlah_indikator}
+            </h1>
+            <h1>
+                Tipe Indikator:
+                {kegiatan.tipe_indikator}
+            </h1>
             <form onSubmit={submit}>
                 <div>
                     <label>Anggaran Murni</label>
