@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
 
-const SubKegiatanIndex = ({ subkegiatan, kegiatan }) => {
+const SubKegiatanIndex = ({ subKegiatan, kegiatan }) => {
     return (
         <div>
             <h1>Sub Kegiatan for Kegiatan: {kegiatan.nama_kegiatan}</h1>
@@ -18,8 +18,8 @@ const SubKegiatanIndex = ({ subkegiatan, kegiatan }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {subkegiatan.length > 0 ? (
-                        subkegiatan.map((subKeg) => (
+                    {subKegiatan.length > 0 ? (
+                        subKegiatan.map((subKeg) => (
                             <tr key={subKeg.id}>
                                 <td>{subKeg.nama_sub_kegiatan}</td>
                                 <td>{subKeg.anggaran_murni}</td>

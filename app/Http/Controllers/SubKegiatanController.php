@@ -96,11 +96,12 @@ public function destroy(SubKegiatan $subKegiatan)
     public function userSubKegiatanIndex(Kegiatan $kegiatan)
     {
     // Ambil data sub kegiatan yang sesuai dengan kegiatan
-    $subKegiatan = SubKegiatan::where('kegiatan_id', $kegiatan->id)->get();
-    
+    $subKegiatan = SubKegiatan::where('kegiatan_id', $kegiatan->id)
+                ->orderBy('created_at', 'asc')  // Gunakan 'asc' untuk menempatkan yang baru di bawah
+                ->get();    
     // Kirim data ke Inertia untuk digunakan di React
     return Inertia::render('User/SubKegiatan/Index', [
-        'subkegiatan' => $subKegiatan,
+        'subKegiatan' => $subKegiatan,
         'kegiatan' => $kegiatan,
     ]);
     }
@@ -131,7 +132,7 @@ public function destroy(SubKegiatan $subKegiatan)
         public function editAnggaran(SubKegiatan $subKegiatan)
     {
         return Inertia::render('User/SubKegiatan/EditAnggaran', [
-            'subkegiatan' => $subKegiatan,
+            'subKegiatan' => $subKegiatan,
         ]);
     }
 }

@@ -104,7 +104,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     // User mengedit anggaran program
     Route::get('/user/program/{program}/edit-anggaran', [ProgramController::class, 'editAnggaran'])->name('user.program.edit-anggaran');
-
     Route::patch('/user/program/{program}/update-anggaran', [ProgramController::class, 'updateAnggaran'])->name('user.program.update-anggaran');
 
     
@@ -119,13 +118,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // User dapat melihat daftar sub-kegiatan di kegiatan tertentu
     Route::get('/user/sub-kegiatan/kegiatan/{kegiatan}', [SubKegiatanController::class, 'userSubKegiatanIndex'])->name('user.subkegiatan.index');
     // User mengedit anggaran sub-kegiatan
-    Route::get('/user/sub-kegiatan/{subkegiatan}/edit-anggaran', [SubKegiatanController::class, 'editAnggaran'])->name('user.subkegiatan.edit-anggaran');
-    Route::patch('/user/sub-kegiatan/{subkegiatan}/update-anggaran', [SubKegiatanController::class, 'updateAnggaran'])->name('user.subkegiatan.update-anggaran');
-    
-        
-    // // Route untuk mengupdate anggaran program
-    // Route::patch('/user/program/{program}/update-anggaran', [ProgramController::class, 'updateAnggaran'])->name('user.program.update-anggaran');
-
+    Route::get('/user/sub-kegiatan/{subKegiatan}/edit-anggaran', [SubKegiatanController::class, 'editAnggaran'])->name('user.subkegiatan.edit-anggaran');
+    Route::patch('/user/sub-kegiatan/{subKegiatan}/update-anggaran', [SubKegiatanController::class, 'updateAnggaran'])->name('user.subkegiatan.update-anggaran');
     
 });
 

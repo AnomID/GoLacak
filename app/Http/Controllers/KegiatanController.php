@@ -102,7 +102,9 @@ class KegiatanController extends Controller
         // User melihat kegiatan di dalam program
     public function userKegiatanIndex(Program $program)
     {
-        $kegiatan = Kegiatan::where('program_id', $program->id)->get();
+        $kegiatan = Kegiatan::where('program_id', $program->id)
+                    ->orderBy('created_at', 'asc')  // Gunakan 'asc' untuk menempatkan yang baru di bawah
+                    ->get();
         return Inertia::render('User/Kegiatan/Index', [
             'kegiatan' => $kegiatan,
             'program' => $program,
