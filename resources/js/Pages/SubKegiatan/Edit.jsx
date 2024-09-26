@@ -1,8 +1,8 @@
 import React from "react";
 import { useForm, Link } from "@inertiajs/react";
 
-const EditSubKegiatan = ({ subkegiatan }) => {
-    const { data, setData, put, errors } = useForm(subkegiatan);
+const EditSubKegiatan = ({ subKegiatan }) => {
+    const { data, setData, put, errors } = useForm(subKegiatan);
 
     const submit = (e) => {
         e.preventDefault();
@@ -14,7 +14,7 @@ const EditSubKegiatan = ({ subkegiatan }) => {
             penyerapan_anggaran: data.penyerapan_anggaran || 0,
             persen_penyerapan_anggaran: data.persen_penyerapan_anggaran || 0,
         };
-        put(route("subkegiatan.update", subkegiatan.id), { data: formData });
+        put(route("subkegiatan.update", subKegiatan.id), { data: formData });
     };
 
     return (

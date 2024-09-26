@@ -21,8 +21,17 @@ class SubKegiatan extends Model
     protected static function boot()
     {
         parent::boot();
+
+        // Saat membuat data baru, isi create_by dan update_by dengan nama user yang login
         static::creating(function ($model) {
-            $model->id = (string) Str::uuid();
+            $model->id = (string) Str::uuid();  // Generate UUID
+            $model->create_by = auth()->user()->name; // Nama user yang login
+            $model->update_by = auth()->user()->name; // Nama user yang login
+        });
+
+        // Saat mengupdate data, update kolom update_by dengan nama user yang login
+        static::updating(function ($model) {
+            $model->update_by = auth()->user()->name;
         });
     }
 

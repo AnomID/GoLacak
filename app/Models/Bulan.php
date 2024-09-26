@@ -17,9 +17,16 @@ class Bulan extends Model
     protected static function boot()
     {
         parent::boot();
-        static::creating(function ($model) {
-            $model->id = (string) Str::uuid();  // Generate UUID saat membuat data baru
-        });
+
+    static::creating(function ($model) {
+        $model->id = (string) Str::uuid();  // Generate UUID saat membuat data baru
+        $model->create_by = auth()->user()->name; // Isi dengan nama user yang login
+        $model->update_by = auth()->user()->name; // Isi dengan nama user yang login
+    });
+
+    static::updating(function ($model) {
+        $model->update_by = auth()->user()->name; // Update dengan nama user yang login
+    });
     }
 
     // Relasi satu Bulan memiliki banyak Program
@@ -27,4 +34,5 @@ class Bulan extends Model
     {
         return $this->hasMany(Program::class);
     }
+
 }

@@ -3,34 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bulan;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\DB;
 use App\Models\Program;
 use App\Models\Kegiatan;
 use App\Models\SubKegiatan;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Inertia\Inertia;
 
 class BulanController extends Controller
 {
-public function index()
-{
-    // Urutkan berdasarkan 'created_at' secara ascending agar yang baru di bawah
-    $bulan = Bulan::orderBy('created_at', 'asc')->get();
-    return Inertia::render('Bulan/Index', ['bulan' => $bulan]);
-}
+    // Metode index untuk admin
+    public function index()
+    {
+        $bulan = Bulan::orderBy('created_at', 'asc')->get();
+        return Inertia::render('Bulan/Index', ['bulan' => $bulan]);
+    }
 
-public function userBulanIndex()
-{
-    // Urutkan berdasarkan 'created_at' secara ascending agar yang baru di bawah
-    $bulan = Bulan::orderBy('created_at', 'asc')->get();
-    return Inertia::render('User/Bulan/Index', ['bulan' => $bulan]);
-}
+    // Metode khusus untuk user (userBulanIndex)
+    public function userBulanIndex()
+    {
+        // Urutkan berdasarkan 'created_at' secara ascending
+        $bulan = Bulan::orderBy('created_at', 'asc')->get();
+        return Inertia::render('User/Bulan/Index', ['bulan' => $bulan]);
+    }
 
     public function create()
     {
         return Inertia::render('Bulan/Create');
     }
-    
+
     public function store(Request $request)
     {
         $request->validate([
@@ -40,7 +41,7 @@ public function userBulanIndex()
         DB::transaction(function () use ($request) {
             $bulan = Bulan::create($request->only('bulan'));
 
-            // Tambah program, kegiatan, sub-kegiatan secara otomatis di sini 
+            // Tambah program, kegiatan, sub-kegiatan secara otomatis di sini
                         // Daftar program yang akan dibuat
             $programs = [
                 [
@@ -592,7 +593,7 @@ Perubahan RKA-SKPD',
                         ],
                     ],
                 ],
-                
+
             ];
 
             // Iterasi setiap program dan buat kegiatan serta sub-kegiatan
@@ -649,7 +650,7 @@ Perubahan RKA-SKPD',
     {
         return Inertia::render('Bulan/Edit', ['bulan' => $bulan]);
     }
-    
+
     public function update(Request $request, Bulan $bulan)
     {
         $request->validate([
@@ -658,12 +659,12 @@ Perubahan RKA-SKPD',
 
         $bulan->update($request->only('bulan'));
 
-        return redirect()->route('admin.bulan.index')->with('success', 'Bulan updated successfully.');
+        return redirect()->route('admin.bulan.index')->with('success', 'Bulan berhasil diperbarui.');
     }
 
     public function destroy(Bulan $bulan)
     {
         $bulan->delete();
-        return redirect()->route('admin.bulan.index')->with('success', 'Bulan deleted successfully.');
+        return redirect()->route('admin.bulan.index')->with('success', 'Bulan berhasil dihapus.');
     }
 }
