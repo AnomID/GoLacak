@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -7,13 +8,13 @@ use Illuminate\Support\Str;
 
 class Kegiatan extends Model
 {
-    use HasFactory;
 
-    protected $table = 'kegiatan';  // Nama tabel secara eksplisit
+    protected $table = 'kegiatan';
     public $incrementing = false;
     protected $keyType = 'uuid';
+
     protected $fillable = [
-        'nama_kegiatan', 'nama_indikator', 'jumlah_indikator', 'tipe_indikator',
+        'id', 'nama_kegiatan', 'nama_indikator', 'jumlah_indikator', 'tipe_indikator',
         'anggaran_murni', 'pergeseran', 'perubahan', 'penyerapan_anggaran',
         'persen_penyerapan_anggaran', 'program_id'
     ];
@@ -22,19 +23,12 @@ class Kegiatan extends Model
     {
         parent::boot();
         static::creating(function ($model) {
-            $model->id = (string) Str::uuid();
+            $model->id = (string) Str::uuid();  // Generate UUID saat membuat data baru
         });
     }
 
-    // Relasi Kegiatan dimiliki oleh satu Program
-    public function program()
+    public function Program()
     {
         return $this->belongsTo(Program::class);
-    }
-
-    // Relasi satu Kegiatan memiliki banyak Sub Kegiatan
-    public function subKegiatans()
-    {
-        return $this->hasMany(SubKegiatan::class);
     }
 }

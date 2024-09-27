@@ -14,6 +14,7 @@ class Bulan extends Model
     protected $keyType = 'uuid';
     protected $fillable = ['bulan'];  // Kolom yang dapat diisi
 
+
     protected static function boot()
     {
         parent::boot();
