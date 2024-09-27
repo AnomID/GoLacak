@@ -51,7 +51,15 @@ class KegiatanController extends Controller
             'program_id' => 'required|exists:program,id',
         ]);
 
-        Kegiatan::create($request->all());
+        // Pastikan semua anggaran memiliki nilai default 0 jika null
+        $data = $request->all();
+        $data['anggaran_murni'] = $data['anggaran_murni'] ?? 0;
+        $data['pergeseran'] = $data['pergeseran'] ?? 0;
+        $data['perubahan'] = $data['perubahan'] ?? 0;
+        $data['penyerapan_anggaran'] = $data['penyerapan_anggaran'] ?? 0;
+        $data['persen_penyerapan_anggaran'] = $data['persen_penyerapan_anggaran'] ?? 0;
+
+        Kegiatan::create($data);
 
         return redirect()->route('kegiatan.index', $request->program_id)->with('success', 'Kegiatan berhasil dibuat.');
     }
