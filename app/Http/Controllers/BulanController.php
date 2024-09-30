@@ -19,7 +19,7 @@ class BulanController extends Controller
         return Inertia::render('Bulan/Index', ['bulan' => $bulan]);
     }
 
-    public function show(Bulan $bulan)
+    public function tampil(Bulan $bulan)
     {
     // Fetch the month with related programs, activities, and sub-activities
     $bulan = Bulan::with(['programs.kegiatans.subKegiatans'])->find($bulan->id);

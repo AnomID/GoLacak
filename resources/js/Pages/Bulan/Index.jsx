@@ -39,7 +39,7 @@ const BulanIndex = ({ bulan }) => {
                             <td>
                                 {/* View Details Button */}
                                 <Link
-                                    href={route("admin.bulan.show", item.id)} // View details route
+                                    href={route("admin.bulan.tampil", item.id)} // View details route
                                     className="btn btn-sm btn-info"
                                     style={{ marginRight: "5px" }}
                                 >

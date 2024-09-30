@@ -46,15 +46,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
 // Admin Routes
 Route::middleware(['auth', 'role:admin'])->group(function () {
     // Bulan routes for admin
-    Route::get('/admin/bulan', [BulanController::class, 'index'])->name('admin.bulan.index');
-    Route::get('/admin/bulan/{bulan}', [BulanController::class, 'show'])->name('admin.bulan.show');
+    // Bulan create route
     Route::get('/admin/bulan/create', [BulanController::class, 'create'])->name('admin.bulan.create');
+    
+    // Bulan index, show, and other routes
+    Route::get('/admin/bulan', [BulanController::class, 'index'])->name('admin.bulan.index');
+    Route::get('/admin/bulan/{bulan}', [BulanController::class, 'tampil'])->name('admin.bulan.tampil');
     Route::post('/admin/bulan', [BulanController::class, 'store'])->name('admin.bulan.store');
     Route::get('/admin/bulan/{bulan}/edit', [BulanController::class, 'edit'])->name('admin.bulan.edit');
     Route::put('/admin/bulan/{bulan}', [BulanController::class, 'update'])->name('admin.bulan.update');
     Route::delete('/admin/bulan/{bulan}', [BulanController::class, 'destroy'])->name('admin.bulan.destroy');
-    // Add this route to your web.php or routes file
-    // Route::get('/admin/bulan/all', [BulanController::class, 'all'])->name('admin.bulan.all');
 
 
     // Program routes for admin
