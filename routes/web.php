@@ -36,7 +36,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
-    
+
     // Rute untuk Profil Pengguna
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -48,9 +48,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // Bulan routes for admin
     // Bulan create route
     Route::get('/admin/bulan/create', [BulanController::class, 'create'])->name('admin.bulan.create');
-    
+
     // Bulan index, show, and other routes
     Route::get('/admin/bulan', [BulanController::class, 'index'])->name('admin.bulan.index');
+    Route::get('/admin/bulan/view-all', [BulanController::class, 'viewAll'])->name('admin.bulan.viewAll');
     Route::get('/admin/bulan/{bulan}', [BulanController::class, 'tampil'])->name('admin.bulan.tampil');
     Route::post('/admin/bulan', [BulanController::class, 'store'])->name('admin.bulan.store');
     Route::get('/admin/bulan/{bulan}/edit', [BulanController::class, 'edit'])->name('admin.bulan.edit');
@@ -82,6 +83,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/admin/sub-kegiatan/{subKegiatan}', [SubKegiatanController::class, 'update'])->name('subkegiatan.update');
     Route::delete('/admin/sub-kegiatan/{subKegiatan}', [SubKegiatanController::class, 'destroy'])->name('subkegiatan.destroy');
 
+
+
 });
 
 // Rute yang bisa diakses oleh User untuk melihat dan mengedit anggaran
@@ -96,7 +99,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/user/program/{program}/edit-anggaran', [ProgramController::class, 'editAnggaran'])->name('user.program.edit-anggaran');
     Route::patch('/user/program/{program}/update-anggaran', [ProgramController::class, 'updateAnggaran'])->name('user.program.update-anggaran');
 
-    
+
     // User dapat melihat daftar kegiatan di program tertentu
     Route::get('/user/kegiatan/program/{program}', [KegiatanController::class, 'userKegiatanIndex'])->name('user.kegiatan.index');
 
@@ -104,13 +107,16 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/user/kegiatan/{kegiatan}/edit-anggaran', [KegiatanController::class, 'editAnggaran'])->name('user.kegiatan.edit-anggaran');
     Route::patch('/user/kegiatan/{kegiatan}/update-anggaran', [KegiatanController::class, 'updateAnggaran'])->name('user.kegiatan.update-anggaran');
 
-    
+
     // User dapat melihat daftar sub-kegiatan di kegiatan tertentu
     Route::get('/user/sub-kegiatan/kegiatan/{kegiatan}', [SubKegiatanController::class, 'userSubKegiatanIndex'])->name('user.subkegiatan.index');
     // User mengedit anggaran sub-kegiatan
     Route::get('/user/sub-kegiatan/{subKegiatan}/edit-anggaran', [SubKegiatanController::class, 'editAnggaran'])->name('user.subkegiatan.edit-anggaran');
     Route::patch('/user/sub-kegiatan/{subKegiatan}/update-anggaran', [SubKegiatanController::class, 'updateAnggaran'])->name('user.subkegiatan.update-anggaran');
-    
+
+
+
+
 });
 
 // Autentikasi (login, register, dll.)

@@ -676,4 +676,13 @@ Perubahan RKA-SKPD',
         $bulan->delete();
         return redirect()->route('admin.bulan.index')->with('success', 'Bulan berhasil dihapus.');
     }
+    public function viewAll()
+{
+    // Fetch all bulan with related programs, kegiatan, and sub-kegiatan
+    $bulan = Bulan::with(['programs.kegiatans.subKegiatans'])->get();
+
+        return Inertia::render('Bulan/BulanDetail', [
+        'bulan' => $bulan
+    ]);
+}
 }

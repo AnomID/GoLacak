@@ -13,7 +13,6 @@ const BulanIndex = ({ bulan }) => {
     return (
         <div>
             <h1>Bulan</h1>
-
             {/* Add "Add Bulan" button */}
             <div style={{ marginBottom: "20px" }}>
                 <Link
@@ -22,6 +21,14 @@ const BulanIndex = ({ bulan }) => {
                 >
                     Add Bulan
                 </Link>
+                <div style={{ marginBottom: "20px" }}>
+                    <Link
+                        href={route("admin.bulan.viewAll")}
+                        className="btn btn-sm btn-primary"
+                    >
+                        View All
+                    </Link>
+                </div>
             </div>
 
             {/* Display the list of months */}
