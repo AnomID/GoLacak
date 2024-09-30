@@ -19,6 +19,15 @@ class BulanController extends Controller
         return Inertia::render('Bulan/Index', ['bulan' => $bulan]);
     }
 
+    public function show(Bulan $bulan)
+    {
+    // Fetch the month with related programs, activities, and sub-activities
+    $bulan = Bulan::with(['programs.kegiatans.subKegiatans'])->find($bulan->id);
+
+    return Inertia::render('Bulan/Show', [
+        'bulan' => $bulan
+    ]);
+}
     // Metode khusus untuk user (userBulanIndex)
     public function userBulanIndex()
     {

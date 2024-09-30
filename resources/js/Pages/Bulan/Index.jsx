@@ -13,7 +13,7 @@ const BulanIndex = ({ bulan }) => {
         <div>
             <h1>Bulan</h1>
 
-            {/* Tambahkan tombol Add Bulan di sini */}
+            {/* Add buttons for adding a month and viewing all months */}
             <div style={{ marginBottom: "20px" }}>
                 <Link
                     href={route("admin.bulan.create")}
@@ -21,6 +21,13 @@ const BulanIndex = ({ bulan }) => {
                 >
                     Add Bulan
                 </Link>
+                {/* <Link
+                    href={route("admin.bulan.index")}
+                    className="btn btn-sm btn-secondary"
+                    style={{ marginLeft: "10px" }}
+                >
+                    View All Months
+                </Link> */}
             </div>
 
             <table>
@@ -33,12 +40,11 @@ const BulanIndex = ({ bulan }) => {
                 <tbody>
                     {bulan.map((item) => (
                         <tr key={item.id}>
+                            <td>{item.bulan}</td>
                             <td>
                                 <Link href={route("program.index", item.id)}>
-                                    {item.bulan}
+                                    View
                                 </Link>
-                            </td>
-                            <td>
                                 <Link
                                     href={route("admin.bulan.edit", item.id)}
                                     className="btn btn-sm btn-warning"
@@ -46,7 +52,7 @@ const BulanIndex = ({ bulan }) => {
                                     Edit
                                 </Link>
                                 <button
-                                    onClick={() => handleDelete(item.id)} // Panggil handleDelete
+                                    onClick={() => handleDelete(item.id)}
                                     className="btn btn-sm btn-danger"
                                 >
                                     Delete

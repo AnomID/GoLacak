@@ -47,11 +47,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware(['auth', 'role:admin'])->group(function () {
     // Bulan routes for admin
     Route::get('/admin/bulan', [BulanController::class, 'index'])->name('admin.bulan.index');
+    Route::get('/admin/bulan/{bulan}', [BulanController::class, 'show'])->name('admin.bulan.show');
     Route::get('/admin/bulan/create', [BulanController::class, 'create'])->name('admin.bulan.create');
     Route::post('/admin/bulan', [BulanController::class, 'store'])->name('admin.bulan.store');
     Route::get('/admin/bulan/{bulan}/edit', [BulanController::class, 'edit'])->name('admin.bulan.edit');
     Route::put('/admin/bulan/{bulan}', [BulanController::class, 'update'])->name('admin.bulan.update');
     Route::delete('/admin/bulan/{bulan}', [BulanController::class, 'destroy'])->name('admin.bulan.destroy');
+    // Add this route to your web.php or routes file
+    // Route::get('/admin/bulan/all', [BulanController::class, 'all'])->name('admin.bulan.all');
+
 
     // Program routes for admin
     Route::get('/admin/bulan/{bulan}/programs', [ProgramController::class, 'index'])->name('program.index');
@@ -69,14 +73,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/admin/kegiatan/{kegiatan}', [KegiatanController::class, 'update'])->name('kegiatan.update');
     Route::delete('/admin/kegiatan/{kegiatan}', [KegiatanController::class, 'destroy'])->name('kegiatan.destroy');
 
-    // // Sub-Kegiatan routes for admin
-    // Route::get('/admin/kegiatan/{kegiatan}/sub-kegiatan', [SubKegiatanController::class, 'index'])->name('subkegiatan.index');
-    // Route::get('/admin/kegiatan/{kegiatan}/sub-kegiatan/create', [SubKegiatanController::class, 'create'])->name('subkegiatan.create');
-    // Route::post('/admin/kegiatan/{kegiatan}/sub-kegiatan', [SubKegiatanController::class, 'store'])->name('subkegiatan.store');
-    // Route::get('/admin/sub-kegiatan/{subkegiatan}/edit', [SubKegiatanController::class, 'edit'])->name('subkegiatan.edit');
-    // Route::put('/admin/sub-kegiatan/{subkegiatan}', [SubKegiatanController::class, 'update'])->name('subkegiatan.update');
-    // Route::delete('/admin/sub-kegiatan/{subkegiatan}', [SubKegiatanController::class, 'destroy'])->name('subkegiatan.destroy');
-
     // Sub-Kegiatan routes for admin
     Route::get('/admin/kegiatan/{kegiatan}/sub-kegiatan', [SubKegiatanController::class, 'index'])->name('subkegiatan.index');
     Route::get('/admin/kegiatan/{kegiatan}/sub-kegiatan/create', [SubKegiatanController::class, 'create'])->name('subkegiatan.create');
@@ -84,13 +80,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/sub-kegiatan/{subKegiatan}/edit', [SubKegiatanController::class, 'edit'])->name('subkegiatan.edit');
     Route::put('/admin/sub-kegiatan/{subKegiatan}', [SubKegiatanController::class, 'update'])->name('subkegiatan.update');
     Route::delete('/admin/sub-kegiatan/{subKegiatan}', [SubKegiatanController::class, 'destroy'])->name('subkegiatan.destroy');
-    
-    // Route::get('/admin/kegiatan/{kegiatan}/sub-kegiatan', [SubKegiatanController::class, 'index'])->name('subkegiatan.index');
-    // Route::get('/admin/kegiatan/{kegiatan}/sub-kegiatan/create', [SubKegiatanController::class, 'create'])->name('subkegiatan.create');
-    // Route::post('/admin/kegiatan/{kegiatan}/sub-kegiatan', [SubKegiatanController::class, 'store'])->name('subkegiatan.store');
-    // Route::get('/admin/kegiatan/{kegiatan}/sub-kegiatan/{subkegiatan}/edit', [SubKegiatanController::class, 'edit'])->name('subkegiatan.edit');
-    // Route::put('/admin/kegiatan/{kegiatan}/sub-kegiatan/{subkegiatan}', [SubKegiatanController::class, 'update'])->name('subkegiatan.update');
-    // Route::delete('/admin/kegiatan/{kegiatan}/sub-kegiatan/{subkegiatan}', [SubKegiatanController::class, 'destroy'])->name('subkegiatan.destroy');
 
 });
 
