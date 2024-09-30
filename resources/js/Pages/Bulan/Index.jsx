@@ -3,9 +3,10 @@ import { Link } from "@inertiajs/inertia-react";
 import { Inertia } from "@inertiajs/inertia";
 
 const BulanIndex = ({ bulan }) => {
+    // Function to handle deletion of a month
     const handleDelete = (id) => {
         if (confirm("Are you sure you want to delete this month?")) {
-            Inertia.delete(route("admin.bulan.destroy", id)); // Menggunakan Inertia untuk delete
+            Inertia.delete(route("admin.bulan.destroy", id)); // Use Inertia for delete
         }
     };
 
@@ -13,7 +14,7 @@ const BulanIndex = ({ bulan }) => {
         <div>
             <h1>Bulan</h1>
 
-            {/* Add buttons for adding a month and viewing all months */}
+            {/* Add "Add Bulan" button */}
             <div style={{ marginBottom: "20px" }}>
                 <Link
                     href={route("admin.bulan.create")}
@@ -21,15 +22,9 @@ const BulanIndex = ({ bulan }) => {
                 >
                     Add Bulan
                 </Link>
-                {/* <Link
-                    href={route("admin.bulan.index")}
-                    className="btn btn-sm btn-secondary"
-                    style={{ marginLeft: "10px" }}
-                >
-                    View All Months
-                </Link> */}
             </div>
 
+            {/* Display the list of months */}
             <table>
                 <thead>
                     <tr>
@@ -42,15 +37,34 @@ const BulanIndex = ({ bulan }) => {
                         <tr key={item.id}>
                             <td>{item.bulan}</td>
                             <td>
-                                <Link href={route("program.index", item.id)}>
-                                    View
+                                {/* View Details Button */}
+                                <Link
+                                    href={route("admin.bulan.show", item.id)} // View details route
+                                    className="btn btn-sm btn-info"
+                                    style={{ marginRight: "5px" }}
+                                >
+                                    View Details
                                 </Link>
+
+                                {/* Link to Programs Page */}
+                                <Link
+                                    href={route("program.index", item.id)}
+                                    className="btn btn-sm btn-secondary"
+                                    style={{ marginRight: "5px" }}
+                                >
+                                    View Programs
+                                </Link>
+
+                                {/* Edit Button */}
                                 <Link
                                     href={route("admin.bulan.edit", item.id)}
                                     className="btn btn-sm btn-warning"
+                                    style={{ marginRight: "5px" }}
                                 >
                                     Edit
                                 </Link>
+
+                                {/* Delete Button */}
                                 <button
                                     onClick={() => handleDelete(item.id)}
                                     className="btn btn-sm btn-danger"
