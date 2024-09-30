@@ -5,46 +5,49 @@ import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
 
-export default function Authenticated({ user, header, children }) {
+export default function AuthenticatedLayout({ user, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
     return (
-        <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white border-b border-gray-100">
+        <div className="min-h-screen bg-[#FCFAEE]">
+            {/* Navbar */}
+            <nav className="bg-[#B8001F] border-b border-gray-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
                                 <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-red-800" />
+                                    <ApplicationLogo className="block h-9 w-auto fill-current text-white" />
                                 </Link>
-                                <h1>GO-Lacak</h1>
+                                <h1 className="text-lg font-bold ml-4 text-white">
+                                    GO-Lacak
+                                </h1>
                             </div>
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink
                                     href={route("dashboard")}
                                     active={route().current("dashboard")}
+                                    className="text-white hover:text-gray-200"
                                 >
-                                    Dinas Tenaga Kerja Kota Semarang
+                                    Dashboard
                                 </NavLink>
                             </div>
                         </div>
 
-                        <div className="hidden sm:flex sm:items-center sm:ms-6">
-                            <div className="ms-3 relative">
+                        <div className="hidden sm:flex sm:items-center sm:ml-6">
+                            <div className="ml-3 relative">
                                 <Dropdown>
                                     <Dropdown.Trigger>
                                         <span className="inline-flex rounded-md">
                                             <button
                                                 type="button"
-                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-[#507687] hover:text-gray-200 hover:bg-[#384B70] focus:outline-none transition ease-in-out duration-150"
                                             >
                                                 {user.name}
-
                                                 <svg
-                                                    className="ms-2 -me-0.5 h-4 w-4"
+                                                    className="ml-2 -mr-0.5 h-4 w-4"
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 20 20"
                                                     fill="currentColor"
@@ -59,9 +62,11 @@ export default function Authenticated({ user, header, children }) {
                                         </span>
                                     </Dropdown.Trigger>
 
-                                    <Dropdown.Content>
+                                    {/* Dropdown background color changed to grey */}
+                                    <Dropdown.Content className="bg-gray-100 shadow-lg rounded-lg">
                                         <Dropdown.Link
                                             href={route("profile.edit")}
+                                            className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-200 hover:text-gray-900"
                                         >
                                             Profile
                                         </Dropdown.Link>
@@ -69,6 +74,7 @@ export default function Authenticated({ user, header, children }) {
                                             href={route("logout")}
                                             method="post"
                                             as="button"
+                                            className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-200 hover:text-gray-900"
                                         >
                                             Log Out
                                         </Dropdown.Link>
@@ -77,14 +83,15 @@ export default function Authenticated({ user, header, children }) {
                             </div>
                         </div>
 
-                        <div className="-me-2 flex items-center sm:hidden">
+                        {/* Hamburger menu for mobile */}
+                        <div className="-mr-2 flex items-center sm:hidden">
                             <button
                                 onClick={() =>
                                     setShowingNavigationDropdown(
                                         (previousState) => !previousState
                                     )
                                 }
-                                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
+                                className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-gray-200 hover:bg-[#384B70] focus:outline-none transition duration-150 ease-in-out"
                             >
                                 <svg
                                     className="h-6 w-6"
@@ -120,16 +127,17 @@ export default function Authenticated({ user, header, children }) {
                     </div>
                 </div>
 
+                {/* Responsive Navigation for Mobile */}
                 <div
-                    className={
-                        (showingNavigationDropdown ? "block" : "hidden") +
-                        " sm:hidden"
-                    }
+                    className={`${
+                        showingNavigationDropdown ? "block" : "hidden"
+                    } sm:hidden`}
                 >
                     <div className="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink
                             href={route("dashboard")}
                             active={route().current("dashboard")}
+                            className="block px-4 py-2 text-sm text-white hover:bg-[#507687] hover:text-gray-200"
                         >
                             Dashboard
                         </ResponsiveNavLink>
@@ -145,14 +153,19 @@ export default function Authenticated({ user, header, children }) {
                             </div>
                         </div>
 
+                        {/* Dropdown menu for mobile */}
                         <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route("profile.edit")}>
+                            <ResponsiveNavLink
+                                href={route("profile.edit")}
+                                className="block px-4 py-2 text-sm text-white hover:bg-[#507687] hover:text-gray-200"
+                            >
                                 Profile
                             </ResponsiveNavLink>
                             <ResponsiveNavLink
                                 method="post"
                                 href={route("logout")}
                                 as="button"
+                                className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-[#507687] hover:text-gray-200"
                             >
                                 Log Out
                             </ResponsiveNavLink>
@@ -161,15 +174,7 @@ export default function Authenticated({ user, header, children }) {
                 </div>
             </nav>
 
-            {header && (
-                <header className="bg-white shadow">
-                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {header}
-                    </div>
-                </header>
-            )}
-
-            <main>{children}</main>
+            <main className="p-4 sm:p-6 lg:p-8">{children}</main>
         </div>
     );
 }

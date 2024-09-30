@@ -1,89 +1,44 @@
 import React from "react";
-import { Link } from "@inertiajs/inertia-react";
+import Table from "@/Components/Table";
 import { Inertia } from "@inertiajs/inertia";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
-const BulanIndex = ({ bulan }) => {
-    // Function to handle deletion of a month
+const BulanIndex = ({ bulan, auth }) => {
     const handleDelete = (id) => {
         if (confirm("Are you sure you want to delete this month?")) {
-            Inertia.delete(route("admin.bulan.destroy", id)); // Use Inertia for delete
+            Inertia.delete(route("admin.bulan.destroy", id));
         }
     };
 
     return (
-        <div>
-            <h1>Bulan</h1>
-            {/* Add "Add Bulan" button */}
-            <div style={{ marginBottom: "20px" }}>
-                <Link
-                    href={route("admin.bulan.create")}
-                    className="btn btn-sm btn-primary"
-                >
-                    Add Bulan
-                </Link>
-                <div style={{ marginBottom: "20px" }}>
-                    <Link
+        <AuthenticatedLayout user={auth.user}>
+            <div className="container mx-auto p-4 sm:p-6 lg:p-8 bg-[#FCFAEE] min-h-screen">
+                <h1 className="text-2xl font-bold mb-6 text-[#384B70]">
+                    Bulan
+                </h1>
+
+                {/* Tombol Add Bulan langsung tanpa komponen */}
+                <div className="mb-6 flex space-x-2">
+                    <a
+                        href={route("admin.bulan.create")}
+                        className="bg-[#B8001F] text-white py-2 px-4 rounded hover:bg-red-600 transition duration-300"
+                    >
+                        Add Bulan
+                    </a>
+                    <a
                         href={route("admin.bulan.viewAll")}
-                        className="btn btn-sm btn-primary"
+                        className="bg-[#507687] text-white py-2 px-4 rounded hover:bg-[#384B70] transition duration-300"
                     >
                         View All
-                    </Link>
+                    </a>
+                </div>
+
+                {/* Tabel responsive dengan scroll di mobile */}
+                <div className="bg-white p-4 rounded-lg shadow overflow-x-auto">
+                    <Table bulan={bulan} handleDelete={handleDelete} />
                 </div>
             </div>
-
-            {/* Display the list of months */}
-            <table>
-                <thead>
-                    <tr>
-                        <th>Bulan</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {bulan.map((item) => (
-                        <tr key={item.id}>
-                            <td>{item.bulan}</td>
-                            <td>
-                                {/* View Details Button */}
-                                <Link
-                                    href={route("admin.bulan.tampil", item.id)} // View details route
-                                    className="btn btn-sm btn-info"
-                                    style={{ marginRight: "5px" }}
-                                >
-                                    View Details
-                                </Link>
-
-                                {/* Link to Programs Page */}
-                                <Link
-                                    href={route("program.index", item.id)}
-                                    className="btn btn-sm btn-secondary"
-                                    style={{ marginRight: "5px" }}
-                                >
-                                    View Programs
-                                </Link>
-
-                                {/* Edit Button */}
-                                <Link
-                                    href={route("admin.bulan.edit", item.id)}
-                                    className="btn btn-sm btn-warning"
-                                    style={{ marginRight: "5px" }}
-                                >
-                                    Edit
-                                </Link>
-
-                                {/* Delete Button */}
-                                <button
-                                    onClick={() => handleDelete(item.id)}
-                                    className="btn btn-sm btn-danger"
-                                >
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+        </AuthenticatedLayout>
     );
 };
 
