@@ -91,7 +91,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::middleware(['auth', 'role:user'])->group(function () {
     // User dapat melihat daftar bulan
     Route::get('/user/bulan', [BulanController::class, 'userBulanIndex'])->name('user.bulan.index');
-
+    Route::get('/user/bulan/view-all', [BulanController::class, 'viewAll'])->name('user.bulan.viewAll');
+    Route::get('/user/bulan/{bulan}', [BulanController::class, 'tampil'])->name('user.bulan.tampil');
     // User dapat melihat daftar program di bulan tertentu
     Route::get('/user/program/{bulan}', [ProgramController::class, 'userProgramIndex'])->name('user.program.index');
 
