@@ -1,53 +1,30 @@
 import React from "react";
 import { Link } from "@inertiajs/inertia-react";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import UserTable from "@/Components/UserTable"; // Import the new UserTable component
 
-const UserBulanIndex = ({ bulan }) => {
+const UserBulanIndex = ({ bulan, auth }) => {
     return (
-        <div>
-            <h1>Bulan</h1>
-            <div style={{ marginBottom: "20px" }}>
-                <Link
-                    href={route("user.bulan.viewAll")}
-                    className="btn btn-sm btn-primary"
-                >
-                    View All
-                </Link>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Bulan</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {bulan.map((item) => (
-                        <tr key={item.id}>
-                            <td>{item.bulan}</td>
-                            <td>
-                                {/* View Details Button */}
-                                <Link
-                                    href={route("user.bulan.tampil", item.id)} // View details route
-                                    className="btn btn-sm btn-info"
-                                    style={{ marginRight: "5px" }}
-                                >
-                                    View Details
-                                </Link>
+        <AuthenticatedLayout user={auth.user}>
+            <div className="container mx-auto p-4 sm:p-6 lg:p-8 bg-[#FCFAEE] min-h-screen">
+                <h1 className="text-2xl font-bold mb-6 text-[#384B70]">
+                    Data Bulan
+                </h1>
 
-                                {/* Link to Programs Page */}
-                                <Link
-                                    href={route("user.program.index", item.id)}
-                                    className="btn btn-sm btn-secondary"
-                                    style={{ marginRight: "5px" }}
-                                >
-                                    View Programs
-                                </Link>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+                <div className="mb-6">
+                    <Link
+                        href={route("user.bulan.viewAll")}
+                        className="bg-[#507687] text-white py-2 px-4 rounded hover:bg-[#384B70] transition duration-300"
+                    >
+                        View All
+                    </Link>
+                </div>
+
+                <div className="bg-white p-4 rounded-lg shadow overflow-x-auto">
+                    <UserTable bulan={bulan} />
+                </div>
+            </div>
+        </AuthenticatedLayout>
     );
 };
 

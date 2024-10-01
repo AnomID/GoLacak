@@ -27,7 +27,7 @@ const IndexSubKegiatan = ({ subKegiatan, kegiatan, auth, bulan, program }) => {
         "Pergeseran",
         "Perubahan",
         "Penyerapan Anggaran",
-        "Persen Penyerapan",
+        "Persen Penyerapan Anggaran",
     ];
 
     const data = subKegiatan.map((subkegiatan) => ({

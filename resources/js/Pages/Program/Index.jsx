@@ -28,7 +28,7 @@ const ProgramIndex = ({ programs, bulan, auth }) => {
         "Pergeseran",
         "Perubahan",
         "Penyerapan Anggaran",
-        "Persen Penyerapan",
+        "Persen Penyerapan Anggaran",
     ];
 
     // Prepare the data to include only necessary fields

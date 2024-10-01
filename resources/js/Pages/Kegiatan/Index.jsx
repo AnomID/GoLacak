@@ -27,7 +27,7 @@ const KegiatanIndex = ({ kegiatan, program, bulan, auth }) => {
         "Pergeseran",
         "Perubahan",
         "Penyerapan Anggaran",
-        "Persen Penyerapan",
+        "Persen Penyerapan Anggaran",
     ];
 
     const data = kegiatan.map((keg) => ({
