@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 
 export default function Dashboard({ auth }) {
     return (
@@ -18,6 +18,15 @@ export default function Dashboard({ auth }) {
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
                             You're logged in!
+                        </div>
+                        {/* Tombol untuk menuju halaman Bulan */}
+                        <div className="p-6">
+                            <Link
+                                href={route("bulan")} // Ganti 'bulan' dengan nama rute Laravel yang benar
+                                className="bg-blue-500 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-600 transition"
+                            >
+                                Go to Bulan Page
+                            </Link>
                         </div>
                     </div>
                 </div>
