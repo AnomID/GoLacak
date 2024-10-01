@@ -16,10 +16,12 @@ class SubKegiatanController extends Controller
                     ->orderBy('created_at', 'asc')
                     ->get();
 
-        return Inertia::render('SubKegiatan/Index', [
-            'subKegiatan' => $subKegiatan,
-            'kegiatan' => $kegiatan,
-        ]);
+    return Inertia::render('SubKegiatan/Index', [
+        'subKegiatan' => $subKegiatan,
+        'kegiatan' => $kegiatan,
+        'bulan' => $kegiatan->program->bulan, // Menyertakan data bulan
+        'program' => $kegiatan->program, // Menyertakan data program
+    ]);
     }
 
     // Metode khusus untuk user

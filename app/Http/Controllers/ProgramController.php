@@ -32,6 +32,7 @@ class ProgramController extends Controller
         return Inertia::render('User/Program/Index', [
             'programs' => $programs,
             'bulan' => $bulan,
+            
         ]);
     }
 
@@ -60,7 +61,7 @@ class ProgramController extends Controller
         $data['persen_penyerapan_anggaran'] = $data['persen_penyerapan_anggaran'] ?? 0;
 
         Program::create($data);
-        
+
         return redirect()->route('program.index', $request->bulan_id)->with('success', 'Program berhasil dibuat.');
     }
 

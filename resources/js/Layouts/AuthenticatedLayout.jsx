@@ -4,6 +4,10 @@ import Dropdown from "@/Components/Dropdown";
 import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
+import {
+    UserIcon,
+    ArrowLeftEndOnRectangleIcon,
+} from "@heroicons/react/24/solid";
 
 export default function AuthenticatedLayout({ user, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
@@ -17,12 +21,14 @@ export default function AuthenticatedLayout({ user, children }) {
                     <div className="flex justify-between h-16">
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
-                                <Link href="/">
+                                <Link href={route("admin.bulan.index")}>
                                     <ApplicationLogo className="block h-9 w-auto fill-current text-white" />
                                 </Link>
-                                <h1 className="text-lg font-bold ml-4 text-white">
-                                    GO-Lacak
-                                </h1>
+                                <Link href={route("admin.bulan.index")}>
+                                    <h1 className="text-lg font-bold ml-4 text-white">
+                                        GO-Lacak
+                                    </h1>
+                                </Link>
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -31,7 +37,7 @@ export default function AuthenticatedLayout({ user, children }) {
                                     active={route().current("dashboard")}
                                     className="text-white hover:text-gray-200"
                                 >
-                                    Dashboard
+                                    Dinas Tenaga Kerja Kota Semarang
                                 </NavLink>
                             </div>
                         </div>
@@ -62,12 +68,15 @@ export default function AuthenticatedLayout({ user, children }) {
                                         </span>
                                     </Dropdown.Trigger>
 
-                                    {/* Dropdown background color changed to grey */}
                                     <Dropdown.Content className="bg-gray-100 shadow-lg rounded-lg">
                                         <Dropdown.Link
                                             href={route("profile.edit")}
                                             className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-200 hover:text-gray-900"
                                         >
+                                            <UserIcon
+                                                className="h-5 w-5 inline-block mr-1"
+                                                aria-hidden="true"
+                                            />
                                             Profile
                                         </Dropdown.Link>
                                         <Dropdown.Link
@@ -76,6 +85,10 @@ export default function AuthenticatedLayout({ user, children }) {
                                             as="button"
                                             className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-200 hover:text-gray-900"
                                         >
+                                            <ArrowLeftEndOnRectangleIcon
+                                                className="h-5 w-5 inline-block mr-1"
+                                                aria-hidden="true"
+                                            />
                                             Log Out
                                         </Dropdown.Link>
                                     </Dropdown.Content>
@@ -139,7 +152,7 @@ export default function AuthenticatedLayout({ user, children }) {
                             active={route().current("dashboard")}
                             className="block px-4 py-2 text-sm text-white hover:bg-[#507687] hover:text-gray-200"
                         >
-                            Dashboard
+                            Dinas Tenaga Kerja Kota Semarang
                         </ResponsiveNavLink>
                     </div>
 
@@ -159,6 +172,10 @@ export default function AuthenticatedLayout({ user, children }) {
                                 href={route("profile.edit")}
                                 className="block px-4 py-2 text-sm text-white hover:bg-[#507687] hover:text-gray-200"
                             >
+                                <UserIcon
+                                    className="h-5 w-5 inline-block mr-1"
+                                    aria-hidden="true"
+                                />
                                 Profile
                             </ResponsiveNavLink>
                             <ResponsiveNavLink
@@ -167,6 +184,10 @@ export default function AuthenticatedLayout({ user, children }) {
                                 as="button"
                                 className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-[#507687] hover:text-gray-200"
                             >
+                                <ArrowLeftEndOnRectangleIcon
+                                    className="h-5 w-5 inline-block mr-1"
+                                    aria-hidden="true"
+                                />
                                 Log Out
                             </ResponsiveNavLink>
                         </div>

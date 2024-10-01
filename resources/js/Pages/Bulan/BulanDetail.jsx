@@ -1,207 +1,51 @@
 import React from "react";
 import { Link } from "@inertiajs/inertia-react";
+import Program from "@/Components/Program"; // Import the Program component correctly
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout"; // Import AuthenticatedLayout
 
-const BulanDetail = ({ bulan }) => {
+const BulanDetail = ({ bulan, auth }) => {
     return (
-        <div>
-            <h1>Detail Bulan</h1>
-            <Link
-                href={route("admin.bulan.index")}
-                className="btn btn-sm btn-secondary"
-            >
-                Back to Bulan List
-            </Link>
-
-            {/* Display each bulan with its programs, kegiatan, and sub-kegiatan */}
-            {bulan.map((item) => (
-                <div
-                    key={item.id}
-                    style={{
-                        marginTop: "20px",
-                        border: "1px solid #ccc",
-                        padding: "10px",
-                    }}
+        <AuthenticatedLayout user={auth.user}>
+            <div className="container mx-auto p-4 sm:p-6 lg:p-8 bg-[#FCFAEE] min-h-screen">
+                <h1 className="text-xl sm:text-2xl font-bold mb-6 text-[#384B70]">
+                    Data Semua Bulan
+                </h1>
+                <Link
+                    href={route("admin.bulan.index")}
+                    className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600 transition duration-300 mb-4"
                 >
-                    <h2>{item.bulan}</h2>
-                    <div style={{ marginLeft: "20px" }}>
-                        {item.programs && item.programs.length > 0 ? (
-                            item.programs.map((program) => (
-                                <div
-                                    key={program.id}
-                                    style={{ marginTop: "10px" }}
-                                >
-                                    <h3>Program: {program.nama_program}</h3>
-                                    <p>Indikator: {program.nama_indikator}</p>
-                                    <p>
-                                        Jumlah Indikator:{" "}
-                                        {program.jumlah_indikator}
-                                    </p>
-                                    <div style={{ marginLeft: "20px" }}>
-                                        {program.kegiatans &&
-                                        program.kegiatans.length > 0 ? (
-                                            program.kegiatans.map(
-                                                (kegiatan) => (
-                                                    <div
-                                                        key={kegiatan.id}
-                                                        style={{
-                                                            marginTop: "10px",
-                                                        }}
-                                                    >
-                                                        <h4>
-                                                            Kegiatan:{" "}
-                                                            {
-                                                                kegiatan.nama_kegiatan
-                                                            }
-                                                        </h4>
-                                                        <p>
-                                                            Indikator:{" "}
-                                                            {
-                                                                kegiatan.nama_indikator
-                                                            }
-                                                        </p>
-                                                        <p>
-                                                            Jumlah Indikator:{" "}
-                                                            {
-                                                                kegiatan.jumlah_indikator
-                                                            }
-                                                        </p>
-                                                        <p>
-                                                            Tipe Indikator:{" "}
-                                                            {
-                                                                kegiatan.tipe_indikator
-                                                            }
-                                                        </p>
-                                                        <p>
-                                                            Anggaran Murni:{" "}
-                                                            {
-                                                                kegiatan.anggaran_murni
-                                                            }
-                                                        </p>
-                                                        <p>
-                                                            Pergeseran:{" "}
-                                                            {
-                                                                kegiatan.pergeseran
-                                                            }
-                                                        </p>
-                                                        <p>
-                                                            Perubahan:{" "}
-                                                            {kegiatan.perubahan}
-                                                        </p>
-                                                        <p>
-                                                            Penyerapan Anggaran:{" "}
-                                                            {
-                                                                kegiatan.penyerapan_anggaran
-                                                            }
-                                                        </p>
-                                                        <div
-                                                            style={{
-                                                                marginLeft:
-                                                                    "20px",
-                                                            }}
-                                                        >
-                                                            {kegiatan.sub_kegiatans &&
-                                                            kegiatan
-                                                                .sub_kegiatans
-                                                                .length > 0 ? (
-                                                                kegiatan.sub_kegiatans.map(
-                                                                    (
-                                                                        subKegiatan
-                                                                    ) => (
-                                                                        <div
-                                                                            key={
-                                                                                subKegiatan.id
-                                                                            }
-                                                                            style={{
-                                                                                marginTop:
-                                                                                    "10px",
-                                                                            }}
-                                                                        >
-                                                                            <h5>
-                                                                                Sub-Kegiatan:{" "}
-                                                                                {
-                                                                                    subKegiatan.nama_sub_kegiatan
-                                                                                }
-                                                                            </h5>
-                                                                            <p>
-                                                                                Indikator:{" "}
-                                                                                {
-                                                                                    subKegiatan.nama_indikator
-                                                                                }
-                                                                            </p>
-                                                                            <p>
-                                                                                Jumlah
-                                                                                Indikator:{" "}
-                                                                                {
-                                                                                    subKegiatan.jumlah_indikator
-                                                                                }
-                                                                            </p>
-                                                                            <p>
-                                                                                Jumlah
-                                                                                Indikator:{" "}
-                                                                                {
-                                                                                    subKegiatan.jumlah_indikator
-                                                                                }
-                                                                            </p>
-                                                                            <p>
-                                                                                Tipe
-                                                                                Indikator:{" "}
-                                                                                {
-                                                                                    subKegiatan.tipe_indikator
-                                                                                }
-                                                                            </p>
-                                                                            <p>
-                                                                                Anggaran
-                                                                                Murni:{" "}
-                                                                                {
-                                                                                    subKegiatan.anggaran_murni
-                                                                                }
-                                                                            </p>
-                                                                            <p>
-                                                                                Pergeseran:{" "}
-                                                                                {
-                                                                                    subKegiatan.pergeseran
-                                                                                }
-                                                                            </p>
-                                                                            <p>
-                                                                                Perubahan:{" "}
-                                                                                {
-                                                                                    subKegiatan.perubahan
-                                                                                }
-                                                                            </p>
-                                                                            <p>
-                                                                                Penyerapan
-                                                                                Anggaran:{" "}
-                                                                                {
-                                                                                    subKegiatan.penyerapan_anggaran
-                                                                                }
-                                                                            </p>
-                                                                        </div>
-                                                                    )
-                                                                )
-                                                            ) : (
-                                                                <p>
-                                                                    No
-                                                                    Sub-Kegiatan
-                                                                    available
-                                                                </p>
-                                                            )}
-                                                        </div>
-                                                    </div>
-                                                )
-                                            )
-                                        ) : (
-                                            <p>No Kegiatan available</p>
-                                        )}
+                    Kembali ke Daftar Bulan
+                </Link>
+
+                {/* Display each bulan with its programs, kegiatans, and sub-kegiatans */}
+                {bulan.map((item) => (
+                    <div
+                        key={item.id}
+                        className="mt-6 p-6 bg-white border border-gray-300 rounded-lg shadow-lg space-y-6"
+                        style={{ borderTop: "4px solid #507687" }} // Adds a thicker top border
+                    >
+                        <h2 className="text-xl sm:text-3xl font-bold text-[#384B70]">
+                            {item.bulan}
+                        </h2>
+                        <div className="ml-2 sm:ml-4 space-y-4">
+                            {item.programs && item.programs.length > 0 ? (
+                                item.programs.map((program) => (
+                                    <div key={program.id} className="mb-4">
+                                        {" "}
+                                        {/* Added margin-bottom for spacing */}
+                                        <Program program={program} />
                                     </div>
-                                </div>
-                            ))
-                        ) : (
-                            <p>No Programs available</p>
-                        )}
+                                ))
+                            ) : (
+                                <p className="text-sm sm:text-base">
+                                    No Programs available
+                                </p>
+                            )}
+                        </div>
                     </div>
-                </div>
-            ))}
-        </div>
+                ))}
+            </div>
+        </AuthenticatedLayout>
     );
 };
 
