@@ -44,7 +44,7 @@ const ProgramIndex = ({ programs, bulan, auth }) => {
                     aria-hidden="true"
                 />{" "}
                 {/* Increased size here */}
-                View Kegiatan
+                Lihat Kegiatan
             </Link>
             <Link
                 href={route("user.program.edit-anggaran", program.id)}
@@ -52,7 +52,7 @@ const ProgramIndex = ({ programs, bulan, auth }) => {
             >
                 <PencilIcon className="h-6 w-6 mr-1" aria-hidden="true" />{" "}
                 {/* Increased size here */}
-                Update Anggaran
+                Ubah Anggaran
             </Link>
         </div>
     );

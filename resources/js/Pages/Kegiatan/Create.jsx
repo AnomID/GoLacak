@@ -36,7 +36,7 @@ const CreateKegiatan = ({ program, auth }) => {
         <AuthenticatedLayout user={auth.user}>
             <div className="container mx-auto p-6 bg-[#FCFAEE] rounded-lg shadow-md">
                 <h1 className="text-2xl font-bold mb-6 text-[#384B70]">
-                    Create Kegiatan for {program.nama_program}
+                    Buat Kegiatan dalam {program.nama_program}
                 </h1>
                 <form
                     onSubmit={submit}
@@ -143,7 +143,7 @@ const CreateKegiatan = ({ program, auth }) => {
                         type="submit"
                         className="bg-[#384B70] text-white py-2 px-4 rounded hover:bg-[#507687] transition duration-300 mt-4"
                     >
-                        Submit
+                        Simpan
                     </button>
 
                     {/* Tombol Cancel */}
@@ -151,7 +151,7 @@ const CreateKegiatan = ({ program, auth }) => {
                         href={route("kegiatan.index", program.id)}
                         className="inline-block mt-2 border border-[#B8001F] text-[#B8001F] bg-transparent py-2 px-4 rounded hover:bg-[#B8001F] hover:text-white transition duration-300 ml-2"
                     >
-                        Cancel
+                        Batal
                     </Link>
                 </form>
             </div>

@@ -16,7 +16,7 @@ const Table = ({ bulan, handleDelete }) => {
                         Bulan
                     </th>
                     <th className="px-4 py-2 w-2/3">
-                        <div className="flex justify-end pr-8">Actions</div>
+                        <div className="flex justify-end pr-8">Pilihan</div>
                     </th>
                 </tr>
             </thead>
@@ -36,7 +36,7 @@ const Table = ({ bulan, handleDelete }) => {
                                         className="h-5 w-5 mr-1"
                                         aria-hidden="true"
                                     />
-                                    View Details
+                                    Lihat Rincian
                                 </Link>
 
                                 <Link
@@ -47,7 +47,7 @@ const Table = ({ bulan, handleDelete }) => {
                                         className="h-5 w-5 mr-1"
                                         aria-hidden="true"
                                     />
-                                    View Programs
+                                    Lihat Program
                                 </Link>
 
                                 <Link
@@ -58,7 +58,7 @@ const Table = ({ bulan, handleDelete }) => {
                                         className="h-5 w-5 mr-1"
                                         aria-hidden="true"
                                     />
-                                    Edit
+                                    Ubah
                                 </Link>
 
                                 <button
@@ -69,7 +69,7 @@ const Table = ({ bulan, handleDelete }) => {
                                         className="h-5 w-5 mr-1"
                                         aria-hidden="true"
                                     />
-                                    Delete
+                                    Hapus
                                 </button>
                             </div>
                         </td>

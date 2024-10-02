@@ -54,21 +54,21 @@ const ProgramIndex = ({ programs, bulan, auth }) => {
             >
                 <EyeIcon className="h-6 w-6 mr-1" aria-hidden="true" />{" "}
                 {/* Increased size here */}
-                View Kegiatan
+                Lihat Kegiatan
             </Link>
             <Link
                 href={route("program.edit", program.id)}
                 className="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600 transition duration-300 inline-flex items-center text-xs"
             >
                 <PencilIcon className="h-4 w-4 mr-1" aria-hidden="true" />
-                Edit
+                Ubah
             </Link>
             <button
                 onClick={() => handleDelete(program.id)}
                 className="bg-red-600 text-white py-1 px-3 rounded hover:bg-red-700 transition duration-300 inline-flex items-center text-xs"
             >
                 <TrashIcon className="h-4 w-4 mr-1" aria-hidden="true" />
-                Delete
+                Hapus
             </button>
         </>
     );
@@ -115,7 +115,7 @@ const ProgramIndex = ({ programs, bulan, auth }) => {
                     <div className="fixed inset-0 flex items-center justify-center z-50">
                         <div className="bg-white rounded-lg shadow-lg p-6 w-96">
                             <h2 className="text-lg font-semibold mb-4">
-                                Confirm Delete
+                                Konfirmasi Hapus
                             </h2>
                             <p>
                                 Apakah kamu yakin ingin menghapus program ini ?

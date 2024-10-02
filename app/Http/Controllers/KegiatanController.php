@@ -33,10 +33,13 @@ public function index(Program $program)
         $kegiatan = Kegiatan::where('program_id', $program->id)
                     ->orderBy('created_at', 'asc')
                     ->get();
+        $bulan = $program->bulan; // Pastikan relasi 'bulan' sudah didefinisikan di model Program
+
 
         return Inertia::render('User/Kegiatan/Index', [
-            'kegiatan' => $kegiatan,
-            'program' => $program,
+        'kegiatan' => $kegiatan,
+        'program' => $program,
+        'bulan' => $bulan, // Pastikan bulan di sini adalah objek Bulan yang benar
         ]);
     }
 

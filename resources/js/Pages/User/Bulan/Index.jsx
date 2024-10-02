@@ -16,7 +16,7 @@ const UserBulanIndex = ({ bulan, auth }) => {
                         href={route("user.bulan.viewAll")}
                         className="bg-[#507687] text-white py-2 px-4 rounded hover:bg-[#384B70] transition duration-300"
                     >
-                        View All
+                        Lihat Semua
                     </Link>
                 </div>
 

@@ -29,13 +29,13 @@ const BulanIndex = ({ bulan, auth }) => {
                         href={route("admin.bulan.create")}
                         className="bg-[#B8001F] text-white py-2 px-4 rounded hover:bg-red-600 transition duration-300"
                     >
-                        Add Bulan
+                        Tambah Bulan
                     </a>
                     <a
                         href={route("admin.bulan.viewAll")}
                         className="bg-[#507687] text-white py-2 px-4 rounded hover:bg-[#384B70] transition duration-300"
                     >
-                        View All
+                        Lihat Semua
                     </a>
                 </div>
 
@@ -48,7 +48,7 @@ const BulanIndex = ({ bulan, auth }) => {
                     <div className="fixed inset-0 flex items-center justify-center z-50">
                         <div className="bg-white rounded-lg shadow-lg p-6 w-96">
                             <h2 className="text-lg font-semibold mb-4">
-                                Confirm Delete
+                                Konfirmasi Hapus
                             </h2>
                             <p>Apakah kamu yakin ingin menghapus bulan ini ?</p>
                             <div className="mt-4 flex justify-end">
@@ -56,13 +56,13 @@ const BulanIndex = ({ bulan, auth }) => {
                                     onClick={() => setShowModal(false)}
                                     className="bg-gray-300 text-black py-1 px-3 rounded hover:bg-gray-400 mr-2"
                                 >
-                                    Cancel
+                                    Batal
                                 </button>
                                 <button
                                     onClick={confirmDelete}
                                     className="bg-red-600 text-white py-1 px-3 rounded hover:bg-red-500"
                                 >
-                                    Delete
+                                    Hapus
                                 </button>
                             </div>
                         </div>

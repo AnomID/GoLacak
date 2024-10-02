@@ -49,22 +49,22 @@ const KegiatanIndex = ({ kegiatan, program, bulan, auth }) => {
                 href={route("subkegiatan.index", keg.id)}
                 className="bg-[#507687] text-white py-1 px-3 rounded hover:bg-[#384B70] transition duration-300 inline-flex items-center text-xs"
             >
-                <EyeIcon className="h-6 w-6 mr-1" aria-hidden="true" /> View Sub
-                Kegiatan
+                <EyeIcon className="h-6 w-6 mr-1" aria-hidden="true" /> Lihat
+                Sub Kegiatan
             </Link>
             <Link
                 href={route("kegiatan.edit", keg.id)}
                 className="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600 transition duration-300 inline-flex items-center text-xs"
             >
                 <PencilIcon className="h-4 w-4 mr-1" aria-hidden="true" />
-                Edit
+                Ubah
             </Link>
             <button
                 onClick={() => handleDelete(keg.id)}
                 className="bg-red-600 text-white py-1 px-3 rounded hover:bg-red-700 transition duration-300 inline-flex items-center text-xs"
             >
                 <TrashIcon className="h-4 w-4 mr-1" aria-hidden="true" />
-                Delete
+                Hapus
             </button>
         </>
     );
@@ -74,7 +74,7 @@ const KegiatanIndex = ({ kegiatan, program, bulan, auth }) => {
             <div className="container mx-auto p-4 sm:p-6 lg:p-8 bg-[#FCFAEE] min-h-screen">
                 <div className="mb-6 text-[#384B70] text-left sm:text-left">
                     <h1 className="text-2xl font-bold mb-1">
-                        Bulan: {bulan.bulan}
+                        Bulan {bulan.bulan}
                     </h1>
                     <h2 className="text-xl font-semibold">
                         {program.nama_program}

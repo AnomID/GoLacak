@@ -34,6 +34,8 @@ class SubKegiatanController extends Controller
         return Inertia::render('User/SubKegiatan/Index', [
             'subKegiatan' => $subKegiatan,
             'kegiatan' => $kegiatan,
+            'bulan' => $kegiatan->program->bulan, // Menyertakan data bulan
+            'program' => $kegiatan->program, // Menyertakan data program
         ]);
     }
 

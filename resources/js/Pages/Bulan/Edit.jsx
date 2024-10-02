@@ -27,7 +27,7 @@ const BulanEdit = ({ bulan, auth }) => {
         <AuthenticatedLayout user={auth.user}>
             <div className="container mx-auto p-4 sm:p-6 lg:p-8 bg-[#FCFAEE] min-h-screen">
                 <h1 className="text-2xl font-bold mb-6 text-[#384B70]">
-                    Edit Bulan
+                    Ubah Bulan
                 </h1>
                 <form
                     onSubmit={submit}
@@ -55,13 +55,13 @@ const BulanEdit = ({ bulan, auth }) => {
                             type="submit"
                             className="bg-[#B8001F] text-white py-2 px-4 rounded hover:bg-red-600 transition duration-300"
                         >
-                            Submit
+                            Simpan
                         </button>
                         <Link
                             href={route("admin.bulan.index")}
                             className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600 transition duration-300"
                         >
-                            Cancel
+                            Batal
                         </Link>
                     </div>
                 </form>
