@@ -11,7 +11,7 @@ export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         email: "",
         password: "",
-        remember: false,
+        // remember: false,
     });
 
     useEffect(() => {
@@ -37,7 +37,7 @@ export default function Login({ status, canResetPassword }) {
                                 Welcome to Go-Lacak
                             </h2>
                             <p className="text-center text-sm text-gray-600">
-                                Sign into your account
+                                Sign into Go-Lacak
                             </p>
                         </div>
                         {status && (
@@ -89,39 +89,27 @@ export default function Login({ status, canResetPassword }) {
                                     className="mt-2"
                                 />
                             </div>
-                            <div className="flex items-center justify-between">
-                                <label className="flex items-center">
-                                    <Checkbox
-                                        name="remember"
-                                        checked={data.remember}
-                                        onChange={(e) =>
-                                            setData(
-                                                "remember",
-                                                e.target.checked
-                                            )
-                                        }
-                                    />
-                                    <span className="ml-2 text-sm text-gray-600">
-                                        Remember me
-                                    </span>
-                                </label>
-                                {canResetPassword && (
-                                    <Link
-                                        href={route("password.request")}
-                                        className="underline text-sm text-gray-600 hover:text-gray-900"
-                                    >
-                                        Forgot your password?
-                                    </Link>
-                                )}
-                            </div>
+
                             <div>
                                 <PrimaryButton
                                     className="w-full py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                     disabled={processing}
                                 >
-                                    Log in
+                                    Masuk
                                 </PrimaryButton>
                             </div>
+                            {
+                                <div className="flex items-center justify-between">
+                                    {canResetPassword && (
+                                        <Link
+                                            href={route("register")}
+                                            className="underline text-sm text-gray-600 hover:text-gray-900"
+                                        >
+                                            Belum punya akun ?
+                                        </Link>
+                                    )}
+                                </div>
+                            }
                         </form>
                     </div>
                 </div>

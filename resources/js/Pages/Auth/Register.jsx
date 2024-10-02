@@ -127,7 +127,7 @@ export default function Register() {
                                     href={route("login")}
                                     className="underline text-sm text-gray-600 hover:text-gray-900"
                                 >
-                                    Already registered?
+                                    Sudah terdaftar?
                                 </Link>
                             </div>
                             <div>
@@ -135,7 +135,7 @@ export default function Register() {
                                     className="w-full py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                     disabled={processing}
                                 >
-                                    Register
+                                    Daftar
                                 </PrimaryButton>
                             </div>
                         </form>
