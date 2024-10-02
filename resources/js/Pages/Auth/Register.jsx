@@ -34,15 +34,15 @@ export default function Register() {
                     <div className="max-w-md w-full space-y-8">
                         <div>
                             <h2 className="text-center text-3xl font-bold text-gray-900">
-                                Create Your Account
+                                Buat Akun Go-Lacak
                             </h2>
                             <p className="text-center text-sm text-gray-600">
-                                Register to join Go-Lacak
+                                Buat akun untuk mengakses Go-Lacak
                             </p>
                         </div>
                         <form onSubmit={submit} className="space-y-6">
                             <div>
-                                <InputLabel htmlFor="name" value="Name" />
+                                <InputLabel htmlFor="name" value="Nama" />
                                 <TextInput
                                     id="name"
                                     name="name"
@@ -60,7 +60,10 @@ export default function Register() {
                                 />
                             </div>
                             <div>
-                                <InputLabel htmlFor="email" value="Email" />
+                                <InputLabel
+                                    htmlFor="email"
+                                    value="Alamat Email"
+                                />
                                 <TextInput
                                     id="email"
                                     type="email"
@@ -80,7 +83,7 @@ export default function Register() {
                             <div>
                                 <InputLabel
                                     htmlFor="password"
-                                    value="Password"
+                                    value="Kata Sandi"
                                 />
                                 <TextInput
                                     id="password"
@@ -101,7 +104,7 @@ export default function Register() {
                             <div>
                                 <InputLabel
                                     htmlFor="password_confirmation"
-                                    value="Confirm Password"
+                                    value="Ketik Ulang Kata Sandi"
                                 />
                                 <TextInput
                                     id="password_confirmation"

@@ -24,20 +24,20 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         iure accusantium, cum error, dolorem quam nesciunt
                         suscipit itaque atque quo! Itaque fuga natus delectus.
                         <br />
-                        Brand and Communications Consultant
+                        Golacak- golacak
                     </p>
                     <div className="flex space-x-4">
                         <Link
                             href={route("login")}
                             className="bg-orange-500 text-white py-2 px-6 rounded-full font-semibold hover:bg-orange-600 transition"
                         >
-                            Log in
+                            Masuk
                         </Link>
                         <Link
                             href={route("register")}
                             className="bg-transparent border-2 border-white text-white py-2 px-6 rounded-full font-semibold hover:bg-white hover:text-gray-900 transition"
                         >
-                            Register
+                            Daftar
                         </Link>
                     </div>
                 </div>

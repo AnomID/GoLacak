@@ -11,7 +11,6 @@ export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         email: "",
         password: "",
-        // remember: false,
     });
 
     useEffect(() => {
@@ -34,10 +33,10 @@ export default function Login({ status, canResetPassword }) {
                     <div className="max-w-md w-full space-y-8">
                         <div>
                             <h2 className="text-center text-3xl font-bold text-gray-900">
-                                Welcome to Go-Lacak
+                                Selamat datang di Go-Lacak
                             </h2>
                             <p className="text-center text-sm text-gray-600">
-                                Sign into Go-Lacak
+                                Silahkan masuk ke Go-Lacak
                             </p>
                         </div>
                         {status && (
@@ -49,7 +48,7 @@ export default function Login({ status, canResetPassword }) {
                             <div>
                                 <InputLabel
                                     htmlFor="email"
-                                    value="Email address"
+                                    value="Alamat Email"
                                 />
                                 <TextInput
                                     id="email"
@@ -71,7 +70,7 @@ export default function Login({ status, canResetPassword }) {
                             <div>
                                 <InputLabel
                                     htmlFor="password"
-                                    value="Password"
+                                    value="Kata Sandi"
                                 />
                                 <TextInput
                                     id="password"
