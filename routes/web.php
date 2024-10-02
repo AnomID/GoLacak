@@ -28,7 +28,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('welcome'); // Add name here
 
 // Route untuk user yang sudah login
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -46,19 +46,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 // Admin Routes
 Route::middleware(['auth', 'role:admin'])->group(function () {
     // Bulan routes for admin
-    // Bulan create route
     Route::get('/admin/bulan/create', [BulanController::class, 'create'])->name('admin.bulan.create');
-
-    // Bulan index, show, and other routes
     Route::get('/admin/bulan', [BulanController::class, 'index'])->name('admin.bulan.index');
-    // Route::get('/admin/bulan', [BulanController::class, 'index'])->name('bulan');
     Route::get('/admin/bulan/view-all', [BulanController::class, 'viewAll'])->name('admin.bulan.viewAll');
     Route::get('/admin/bulan/{bulan}', [BulanController::class, 'tampil'])->name('admin.bulan.tampil');
     Route::post('/admin/bulan', [BulanController::class, 'store'])->name('admin.bulan.store');
     Route::get('/admin/bulan/{bulan}/edit', [BulanController::class, 'edit'])->name('admin.bulan.edit');
     Route::put('/admin/bulan/{bulan}', [BulanController::class, 'update'])->name('admin.bulan.update');
     Route::delete('/admin/bulan/{bulan}', [BulanController::class, 'destroy'])->name('admin.bulan.destroy');
-
 
     // Program routes for admin
     Route::get('/admin/bulan/{bulan}/programs', [ProgramController::class, 'index'])->name('program.index');
@@ -83,25 +78,20 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/sub-kegiatan/{subKegiatan}/edit', [SubKegiatanController::class, 'edit'])->name('subkegiatan.edit');
     Route::put('/admin/sub-kegiatan/{subKegiatan}', [SubKegiatanController::class, 'update'])->name('subkegiatan.update');
     Route::delete('/admin/sub-kegiatan/{subKegiatan}', [SubKegiatanController::class, 'destroy'])->name('subkegiatan.destroy');
-
-
-
 });
 
 // Rute yang bisa diakses oleh User untuk melihat dan mengedit anggaran
-    Route::middleware(['auth', 'role:user'])->group(function () {
-    // User dapat melihat daftar bulan
-    // Route::get('/user/bulan', [BulanController::class, 'index'])->name('bulan');
+Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/user/bulan', [BulanController::class, 'userBulanIndex'])->name('user.bulan.index');
     Route::get('/user/bulan/view-all', [BulanController::class, 'viewAll'])->name('user.bulan.viewAll');
     Route::get('/user/bulan/{bulan}', [BulanController::class, 'tampil'])->name('user.bulan.tampil');
+
     // User dapat melihat daftar program di bulan tertentu
     Route::get('/user/program/{bulan}', [ProgramController::class, 'userProgramIndex'])->name('user.program.index');
 
     // User mengedit anggaran program
     Route::get('/user/program/{program}/edit-anggaran', [ProgramController::class, 'editAnggaran'])->name('user.program.edit-anggaran');
     Route::patch('/user/program/{program}/update-anggaran', [ProgramController::class, 'updateAnggaran'])->name('user.program.update-anggaran');
-
 
     // User dapat melihat daftar kegiatan di program tertentu
     Route::get('/user/kegiatan/program/{program}', [KegiatanController::class, 'userKegiatanIndex'])->name('user.kegiatan.index');
@@ -110,16 +100,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/user/kegiatan/{kegiatan}/edit-anggaran', [KegiatanController::class, 'editAnggaran'])->name('user.kegiatan.edit-anggaran');
     Route::patch('/user/kegiatan/{kegiatan}/update-anggaran', [KegiatanController::class, 'updateAnggaran'])->name('user.kegiatan.update-anggaran');
 
-
     // User dapat melihat daftar sub-kegiatan di kegiatan tertentu
     Route::get('/user/sub-kegiatan/kegiatan/{kegiatan}', [SubKegiatanController::class, 'userSubKegiatanIndex'])->name('user.subkegiatan.index');
     // User mengedit anggaran sub-kegiatan
     Route::get('/user/sub-kegiatan/{subKegiatan}/edit-anggaran', [SubKegiatanController::class, 'editAnggaran'])->name('user.subkegiatan.edit-anggaran');
     Route::patch('/user/sub-kegiatan/{subKegiatan}/update-anggaran', [SubKegiatanController::class, 'updateAnggaran'])->name('user.subkegiatan.update-anggaran');
-
-
-
-
 });
 
 // Autentikasi (login, register, dll.)

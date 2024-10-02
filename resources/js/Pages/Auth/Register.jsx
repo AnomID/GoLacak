@@ -32,6 +32,13 @@ export default function Register() {
                 {/* Left Section */}
                 <div className="w-full md:w-1/2 bg-white flex items-center justify-center p-10">
                     <div className="max-w-md w-full space-y-8">
+                        {/* Back Button */}
+                        <Link
+                            href={route("welcome")}
+                            className="text-sm text-gray-900 hover:text-gray-500 font-semibold"
+                        >
+                            &larr; Back
+                        </Link>
                         <div>
                             <h2 className="text-center text-3xl font-bold text-gray-900">
                                 Buat Akun Go-Lacak
