@@ -13,6 +13,10 @@ export default function AuthenticatedLayout({ user, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
+    // Menentukan route dashboard berdasarkan role
+    const dashboardRoute =
+        user.role === "admin" ? "admin.bulan.index" : "user.bulan.index";
+
     return (
         <div className="min-h-screen bg-[#FCFAEE]">
             {/* Navbar */}
@@ -21,10 +25,10 @@ export default function AuthenticatedLayout({ user, children }) {
                     <div className="flex justify-between h-16">
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
-                                <Link href={route("admin.bulan.index")}>
+                                <Link href={route(dashboardRoute)}>
                                     <ApplicationLogo className="block h-9 w-auto fill-current text-white" />
                                 </Link>
-                                <Link href={route("admin.bulan.index")}>
+                                <Link href={route(dashboardRoute)}>
                                     <h1 className="text-lg font-bold ml-4 text-white">
                                         GO-Lacak
                                     </h1>
@@ -33,8 +37,8 @@ export default function AuthenticatedLayout({ user, children }) {
 
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink
-                                    href={route("dashboard")}
-                                    active={route().current("dashboard")}
+                                    href={route(dashboardRoute)}
+                                    active={route().current(dashboardRoute)}
                                     className="text-white hover:text-gray-200"
                                 >
                                     Dinas Tenaga Kerja Kota Semarang
@@ -60,7 +64,7 @@ export default function AuthenticatedLayout({ user, children }) {
                                                 >
                                                     <path
                                                         fillRule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                                                         clipRule="evenodd"
                                                     />
                                                 </svg>
@@ -148,8 +152,8 @@ export default function AuthenticatedLayout({ user, children }) {
                 >
                     <div className="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink
-                            href={route("dashboard")}
-                            active={route().current("dashboard")}
+                            href={route(dashboardRoute)}
+                            active={route().current(dashboardRoute)}
                             className="block px-4 py-2 text-sm text-white hover:bg-[#507687] hover:text-gray-200"
                         >
                             Dinas Tenaga Kerja Kota Semarang
