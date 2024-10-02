@@ -6,20 +6,18 @@ import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
 import {
     UserIcon,
-    ArrowLeftOnRectangleIcon, // Updated icon for better appearance
-    ChevronDownIcon, // Icon for dropdown arrow
+    ArrowLeftOnRectangleIcon,
+    ChevronDownIcon,
 } from "@heroicons/react/24/solid";
 
 export default function AuthenticatedLayout({ user, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State for dropdown visibility
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-    // Menentukan route dashboard berdasarkan role
     const dashboardRoute =
         user.role === "admin" ? "admin.bulan.index" : "user.bulan.index";
 
-    // Toggle dropdown visibility
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
@@ -30,27 +28,30 @@ export default function AuthenticatedLayout({ user, children }) {
             <nav className="bg-[#B8001F] border-b border-gray-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
-                        <div className="flex">
-                            <div className="shrink-0 flex items-center">
+                        {/* Flex Container for Logo and Text */}
+                        <div className="flex items-center space-x-4">
+                            {/* Adjust the margin and padding to move the logo and text further left */}
+                            <div className="flex items-center space-x-4 justify-start">
                                 <Link href={route(dashboardRoute)}>
+                                    {/* Application Logo */}
                                     <ApplicationLogo className="block h-9 w-auto fill-current text-white" />
                                 </Link>
                                 <Link href={route(dashboardRoute)}>
-                                    <h1 className="text-lg font-bold ml-4 text-white">
+                                    {/* Text: GO-Lacak */}
+                                    <h1 className="text-lg font-bold text-white">
                                         GO-Lacak
                                     </h1>
                                 </Link>
                             </div>
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink
-                                    href={route(dashboardRoute)}
-                                    active={route().current(dashboardRoute)}
-                                    className="text-white hover:text-gray-200"
-                                >
-                                    Dinas Tenaga Kerja Kota Semarang
-                                </NavLink>
-                            </div>
+                            {/* Text: Dinas Tenaga Kerja */}
+                            <NavLink
+                                href={route(dashboardRoute)}
+                                active={route().current(dashboardRoute)}
+                                className="text-white hover:text-gray-200 no-underline"
+                            >
+                                Dinas Tenaga Kerja Kota Semarang
+                            </NavLink>
                         </div>
 
                         {/* Dropdown Button */}
@@ -61,7 +62,6 @@ export default function AuthenticatedLayout({ user, children }) {
                                     className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-[#507687] hover:text-gray-200 hover:bg-[#384B70] focus:outline-none transition ease-in-out duration-150"
                                 >
                                     {user.name}
-                                    {/* Dropdown Arrow Icon */}
                                     <ChevronDownIcon
                                         className="h-4 w-4 ml-2"
                                         aria-hidden="true"
