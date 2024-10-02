@@ -1,7 +1,8 @@
 import React from "react";
-import { useForm, Link } from "@inertiajs/react";
+import { useForm, Link } from "@inertiajs/inertia-react";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
-const EditAnggaranKegiatan = ({ kegiatan }) => {
+const EditAnggaranKegiatan = ({ kegiatan, auth }) => {
     const { data, setData, patch, errors } = useForm({
         anggaran_murni: kegiatan.anggaran_murni || 0,
         pergeseran: kegiatan.pergeseran || 0,
@@ -16,96 +17,148 @@ const EditAnggaranKegiatan = ({ kegiatan }) => {
     };
 
     return (
-        <div>
-            <h1>
-                Update Anggaran for Kegiatan:
-                {kegiatan.nama_kegiatan}
-            </h1>
-            <h1>
-                Nama Indikator:
-                {kegiatan.nama_indikator}
-            </h1>
-            <h1>
-                Jumlah Indikator:
-                {kegiatan.jumlah_indikator}
-            </h1>
-            <h1>
-                Tipe Indikator:
-                {kegiatan.tipe_indikator}
-            </h1>
-            <form onSubmit={submit}>
-                <div>
-                    <label>Anggaran Murni</label>
-                    <input
-                        type="number"
-                        value={data.anggaran_murni}
-                        onChange={(e) =>
-                            setData("anggaran_murni", e.target.value)
-                        }
-                    />
-                    {errors.anggaran_murni && (
-                        <div>{errors.anggaran_murni}</div>
-                    )}
-                </div>
+        <AuthenticatedLayout user={auth.user}>
+            <div className="container mx-auto p-4 sm:p-6 lg:p-8 bg-[#FCFAEE] min-h-screen">
+                <header className="mb-6">
+                    <h1 className="text-2xl font-bold text-[#384B70]">
+                        Update Anggaran for Kegiatan: {kegiatan.nama_kegiatan}
+                    </h1>
+                    <h2 className="text-xl font-semibold text-[#384B70]">
+                        Nama Indikator: {kegiatan.nama_indikator}
+                    </h2>
+                    <h2 className="text-xl font-semibold text-[#384B70]">
+                        Jumlah Indikator: {kegiatan.jumlah_indikator}
+                    </h2>
+                    <h2 className="text-xl font-semibold text-[#384B70]">
+                        Tipe Indikator: {kegiatan.tipe_indikator}
+                    </h2>
+                </header>
 
-                <div>
-                    <label>Pergeseran</label>
-                    <input
-                        type="number"
-                        value={data.pergeseran}
-                        onChange={(e) => setData("pergeseran", e.target.value)}
-                    />
-                    {errors.pergeseran && <div>{errors.pergeseran}</div>}
-                </div>
+                <div className="bg-white p-6 rounded-lg shadow-lg">
+                    <form onSubmit={submit} className="space-y-4">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">
+                                Anggaran Murni
+                            </label>
+                            <input
+                                type="number"
+                                value={data.anggaran_murni}
+                                onChange={(e) =>
+                                    setData("anggaran_murni", e.target.value)
+                                }
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            />
+                            {errors.anggaran_murni && (
+                                <div className="text-red-600 text-sm">
+                                    {errors.anggaran_murni}
+                                </div>
+                            )}
+                        </div>
 
-                <div>
-                    <label>Perubahan</label>
-                    <input
-                        type="number"
-                        value={data.perubahan}
-                        onChange={(e) => setData("perubahan", e.target.value)}
-                    />
-                    {errors.perubahan && <div>{errors.perubahan}</div>}
-                </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">
+                                Pergeseran
+                            </label>
+                            <input
+                                type="number"
+                                value={data.pergeseran}
+                                onChange={(e) =>
+                                    setData("pergeseran", e.target.value)
+                                }
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            />
+                            {errors.pergeseran && (
+                                <div className="text-red-600 text-sm">
+                                    {errors.pergeseran}
+                                </div>
+                            )}
+                        </div>
 
-                <div>
-                    <label>Penyerapan Anggaran</label>
-                    <input
-                        type="number"
-                        value={data.penyerapan_anggaran}
-                        onChange={(e) =>
-                            setData("penyerapan_anggaran", e.target.value)
-                        }
-                    />
-                    {errors.penyerapan_anggaran && (
-                        <div>{errors.penyerapan_anggaran}</div>
-                    )}
-                </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">
+                                Perubahan
+                            </label>
+                            <input
+                                type="number"
+                                value={data.perubahan}
+                                onChange={(e) =>
+                                    setData("perubahan", e.target.value)
+                                }
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            />
+                            {errors.perubahan && (
+                                <div className="text-red-600 text-sm">
+                                    {errors.perubahan}
+                                </div>
+                            )}
+                        </div>
 
-                <div>
-                    <label>Persen Penyerapan Anggaran</label>
-                    <input
-                        type="number"
-                        step="0.01"
-                        value={data.persen_penyerapan_anggaran}
-                        onChange={(e) =>
-                            setData(
-                                "persen_penyerapan_anggaran",
-                                e.target.value
-                            )
-                        }
-                    />
-                    {errors.persen_penyerapan_anggaran && (
-                        <div>{errors.persen_penyerapan_anggaran}</div>
-                    )}
-                </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">
+                                Penyerapan Anggaran
+                            </label>
+                            <input
+                                type="number"
+                                value={data.penyerapan_anggaran}
+                                onChange={(e) =>
+                                    setData(
+                                        "penyerapan_anggaran",
+                                        e.target.value
+                                    )
+                                }
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            />
+                            {errors.penyerapan_anggaran && (
+                                <div className="text-red-600 text-sm">
+                                    {errors.penyerapan_anggaran}
+                                </div>
+                            )}
+                        </div>
 
-                <button type="submit">Update</button>
-                <Link href={route("user.kegiatan.index", kegiatan.program_id)}>
-                    Cancel
-                </Link>
-            </form>
-        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">
+                                Persen Penyerapan Anggaran
+                            </label>
+                            <input
+                                type="number"
+                                step="0.01"
+                                value={data.persen_penyerapan_anggaran}
+                                onChange={(e) =>
+                                    setData(
+                                        "persen_penyerapan_anggaran",
+                                        e.target.value
+                                    )
+                                }
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            />
+                            {errors.persen_penyerapan_anggaran && (
+                                <div className="text-red-600 text-sm">
+                                    {errors.persen_penyerapan_anggaran}
+                                </div>
+                            )}
+                        </div>
+
+                        <div className="flex justify-between items-center">
+                            <button
+                                type="submit"
+                                className="bg-[#507687] text-white py-2 px-4 rounded hover:bg-[#384B70] transition duration-300"
+                            >
+                                Update
+                            </button>
+                            <Link
+                                href={route(
+                                    "user.kegiatan.index",
+                                    kegiatan.program_id
+                                )}
+                                className="text-[#B8001F] hover:text-red-600 transition duration-300"
+                            >
+                                Cancel
+                            </Link>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </AuthenticatedLayout>
     );
 };
 

@@ -37,7 +37,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::get('/bulan', [BulanController::class, 'index'])->name('bulan');
     // Rute untuk Profil Pengguna
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -52,6 +51,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     // Bulan index, show, and other routes
     Route::get('/admin/bulan', [BulanController::class, 'index'])->name('admin.bulan.index');
+    // Route::get('/admin/bulan', [BulanController::class, 'index'])->name('bulan');
     Route::get('/admin/bulan/view-all', [BulanController::class, 'viewAll'])->name('admin.bulan.viewAll');
     Route::get('/admin/bulan/{bulan}', [BulanController::class, 'tampil'])->name('admin.bulan.tampil');
     Route::post('/admin/bulan', [BulanController::class, 'store'])->name('admin.bulan.store');
@@ -91,6 +91,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 // Rute yang bisa diakses oleh User untuk melihat dan mengedit anggaran
     Route::middleware(['auth', 'role:user'])->group(function () {
     // User dapat melihat daftar bulan
+    // Route::get('/user/bulan', [BulanController::class, 'index'])->name('bulan');
     Route::get('/user/bulan', [BulanController::class, 'userBulanIndex'])->name('user.bulan.index');
     Route::get('/user/bulan/view-all', [BulanController::class, 'viewAll'])->name('user.bulan.viewAll');
     Route::get('/user/bulan/{bulan}', [BulanController::class, 'tampil'])->name('user.bulan.tampil');
